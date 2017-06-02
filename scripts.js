@@ -36,9 +36,11 @@ function buscarDireccion(geocodificador, mapa, marcador){
   var direccion = document.getElementById('direccion').value;
   var ciudad = document.getElementById('ciudad').value;
   // geocodificar la direccion
-  geocodeAddress(geocodificador, mapa, direccion, ciudad, marcador);
+  var direccionlatlng = geocodeAddress(geocodificador, mapa, direccion, ciudad, marcador);
   // listar la direccion en la variable que le corresponde a la zona
   //var listaDeDirecciones = enQueZonaEsta(direccionlatlng, poligonosZonas, direccion);
+  //lista[numero].push(ultimadireccion);
+
   // Eliminar los tips
   eliminarElemento("tips");
 }
@@ -240,7 +242,7 @@ function geocodeAddress(geocodificador, mapa, address, locality, marcador) {
       //mapa.setCenter(results[0].geometry.location);       // Centrar del mapa
       marcador.setPosition(results[0].geometry.location);
     } else {
-      alert('No se pudo geocodificar la direccion por el siguiente motivo: ' + status);
+      alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
   });
 }
@@ -264,13 +266,6 @@ function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
 
   document.getElementById(id).appendChild(elemento);
 }
-
-// FUNCION PARA ELIMINAR UN ELEMENTO
-function eliminarElemento(elemento){
-	if (document.getElementById(elemento))
-		document.getElementById(elemento).remove();
-}
-
 /*
 //FUNCION PARA IMPRIMIR ARRAY EN EL HTML
 function listar(direcciones, id, lista) {
@@ -281,3 +276,8 @@ function listar(direcciones, id, lista) {
   document.getElementById(id).innerHTML = lista;
 }
 */
+// FUNCION PARA ELIMINAR UN ELEMENTO
+function eliminarElemento(elemento){
+	if (document.getElementById(elemento))
+		document.getElementById(elemento).remove();
+}
