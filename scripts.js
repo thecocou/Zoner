@@ -47,36 +47,37 @@ function buscarDireccion(geocodificador, mapa, marcador){
 
 //Agregar Polygons
 function cargarZonas(){
-  let zona = [];
-  //   zona 1
-  zona[0] = {
-    nombre: "Zona 1",
-    notificador: "Manzur",
-	  coordenadas: [{lat:-34.6590200, lng:-58.38837810},
-					       {lat:-34.6092438, lng:-58.39195599},
-					       {lat:-34.6060835, lng:-58.33353984},
-					       {lat:-34.6281219, lng:-58.33079326},
-					       {lat:-34.6552390, lng:-58.36606979}],
-    color: "#FE2E2E"
-  };
-  // Zona 2
-  zona[1] = {
-    nombre: "Zona 2",
-    notificador: "ATilio",
-	  coordenadas: [{lat:-34.6092220, lng:-58.39199439},
+  var zona =
+  [
+    {
+      //   zona 1
+      nombre: "Zona 1",
+      notificador: "Manzur",
+	    coordenadas: [{lat:-34.6590200, lng:-58.38837810},
+					          {lat:-34.6092438, lng:-58.39195599},
+					          {lat:-34.6060835, lng:-58.33353984},
+					          {lat:-34.6281219, lng:-58.33079326},
+					          {lat:-34.6552390, lng:-58.36606979}],
+      color: "#FE2E2E"
+    },
+    {
+      // Zona 2
+      nombre: "Zona 2",
+      notificador: "ATilio",
+	    coordenadas: [{lat:-34.6092220, lng:-58.39199439},
                     {lat:-34.5958525, lng:-58.39333090},
                     {lat:-34.5938346, lng:-58.39307470},
                     {lat:-34.5926939, lng:-58.39286429},
                     {lat:-34.5875521, lng:-58.38708529},
                     {lat:-34.5725909, lng:-58.36649882},
                     {lat:-34.6060835, lng:-58.33353984}],
-    color: "#FF00BF"
-  };
-	// Zona 3
-  zona[2] = {
-    nombre: "Zona 3",
-    notificador: "Gonzalez",
-	  coordenadas: [{lat:-34.6590200, lng:-58.38837810},
+     color: "#FF00BF"
+    },
+    {
+	  // Zona 3
+      nombre: "Zona 3",
+      notificador: "Gonzalez",
+	    coordenadas: [{lat:-34.6590200, lng:-58.38837810},
                     {lat:-34.6092438, lng:-58.39195599},
                     {lat:-34.6114395, lng:-58.42100729},
                     {lat:-34.6204466, lng:-58.44124039},
@@ -90,13 +91,13 @@ function cargarZonas(){
                     {lat:-34.6562693, lng:-58.41643709},
                     {lat:-34.6613460, lng:-58.41696739},
                     {lat:-34.6639581, lng:-58.39113235}],
-    color: "#ff903e"
-  };
-	// Zona 4
-  zona[3] = {
-    nombre: "Zona x",
-    notificador: "Xrivier",
-    coordenadas: [{lat:-34.6204466, lng:-58.44124039},
+      color: "#ff903e"
+    },
+    {
+    // Zona 4
+      nombre: "Zona x",
+      notificador: "Xrivier",
+      coordenadas: [{lat:-34.6204466, lng:-58.44124039},
                     {lat:-34.6263987, lng:-58.44043799},
                     {lat:-34.6265536, lng:-58.44125769},
                     {lat:-34.6346166, lng:-58.43573340},
@@ -115,13 +116,13 @@ function cargarZonas(){
                     {lat:-34.6365836, lng:-58.49363560},
                     {lat:-34.6307082, lng:-58.46964969},
                     {lat:-34.6279616, lng:-58.45985559}],
-    color: "#fce000"
-  };
-	// Zona 5
-  zona[4] = {
-    nombre: "Zona 5",
-    notificador: "Pablo",
-	  coordenadas: [{lat:-34.6394577, lng:-58.52957725},
+      color: "#fce000"
+    },
+    {
+	  // Zona 5
+      nombre: "Zona 5",
+      notificador: "Pablo",
+	    coordenadas: [{lat:-34.6394577, lng:-58.52957725},
                     {lat:-34.6388220, lng:-58.52253389},
                     {lat:-34.6393221, lng:-58.51141530},
                     {lat:-34.6380897, lng:-58.50393489},
@@ -140,13 +141,13 @@ function cargarZonas(){
                     {lat:-34.5968256, lng:-58.49676880},
                     {lat:-34.5897030, lng:-58.51784959},
                     {lat:-34.6157624, lng:-58.53086471}],
-    color: "#00c2ac"
-  };
-	// Zona 6
-  zona[5] = {
-    nombre: "Zona 6",
-    notificador: "Hilda",
-  	coordenadas: [{lat:-34.6092220, lng:-58.39199439},
+      color: "#00c2ac"
+    },
+	  {
+       // Zona 6
+       nombre: "Zona 6",
+       notificador: "Hilda",
+  	   coordenadas: [{lat:-34.6092220, lng:-58.39199439},
                     {lat:-34.5958525, lng:-58.39333090},
                     {lat:-34.5938346, lng:-58.39307470},
                     {lat:-34.5926939, lng:-58.39286429},
@@ -161,13 +162,13 @@ function cargarZonas(){
                     {lat:-34.6087526, lng:-58.43045240},
                     {lat:-34.6154380, lng:-58.43004600},
                     {lat:-34.6114395, lng:-58.42100729}],
-    color: "#cf3aa0"
-  };
-	// Zona 7
-  zona[6] = {
-    nombre: "Zona 7",
-    notificador: "Leandro",
-    coordenadas: [{lat:-34.5897030, lng:-58.51784959},
+      color: "#cf3aa0"
+    },
+    {
+	    // Zona 7
+      nombre: "Zona 7",
+      notificador: "Leandro",
+      coordenadas: [{lat:-34.5897030, lng:-58.51784959},
                     {lat:-34.5968256, lng:-58.49676880},
                     {lat:-34.5978207, lng:-58.48308329},
                     {lat:-34.5962296, lng:-58.47031229},
@@ -179,13 +180,13 @@ function cargarZonas(){
                     {lat:-34.5458023, lng:-58.41507911},
                     {lat:-34.5284799, lng:-58.44941139},
                     {lat:-34.5498319, lng:-58.49987983}],
-    color: "#0098da"
-  };
-	// Zona 8
-  zona[7] = {
-    nombre: "Zona 8",
-    notificador: "ALberto",
-	  coordenadas: [{lat:-34.5458023, lng:-58.41507911},
+      color: "#0098da"
+    },
+    {
+      // Zona 8
+      nombre: "Zona 8",
+      notificador: "ALberto",
+	    coordenadas: [{lat:-34.5458023, lng:-58.41507911},
                     {lat:-34.5615662, lng:-58.43679428},
                     {lat:-34.5699171, lng:-58.44491790},
                     {lat:-34.5804886, lng:-58.45096339},
@@ -196,10 +197,12 @@ function cargarZonas(){
                     {lat:-34.5778040, lng:-58.40857744},
                     {lat:-34.5787050, lng:-58.40679645},
                     {lat:-34.5607169, lng:-58.39018809}],
-    color:"#0000FF"
-  };
+      color:"#0000FF"
+    }
+  ];
   return zona;
 }
+
 
 // FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
 function mostrarZonasEnMapa(zona, mapa){
