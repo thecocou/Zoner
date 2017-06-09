@@ -38,7 +38,7 @@ function buscarDireccion(geocodificador, mapa, marcador){
   // geocodificar la direccion
   var direccionlatlng = geocodeAddress(geocodificador, mapa, direccion, ciudad, marcador);
   // listar la direccion en la variable que le corresponde a la zona
-  //var listaDeDirecciones = enQueZonaEsta(direccionlatlng, poligonosZonas, direccion);
+  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, poligonosZonas, direccion);
   //lista[numero].push(ultimadireccion);
 
   // Eliminar los tips
@@ -244,6 +244,7 @@ function geocodeAddress(geocodificador, mapa, address, locality, marcador) {
     if (status === google.maps.GeocoderStatus.OK) {                                // si google pudo geocodificar la direccion
       //mapa.setCenter(results[0].geometry.location);       // Centrar del mapa
       marcador.setPosition(results[0].geometry.location);
+      return results[0].geometry.location;
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
