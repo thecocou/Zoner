@@ -47,7 +47,7 @@ function buscarDireccion(geocodificador, mapa, marcador){
 
 //Agregar Polygons
 function cargarZonas(){
-  var zona =
+  let zona =
   [
     {
       //   zona 1
@@ -197,7 +197,7 @@ function cargarZonas(){
                     {lat:-34.5778040, lng:-58.40857744},
                     {lat:-34.5787050, lng:-58.40679645},
                     {lat:-34.5607169, lng:-58.39018809}],
-      color:"#0000FF"
+      color: "#0000FF"
     }
   ];
   return zona;
