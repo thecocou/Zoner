@@ -8,6 +8,7 @@ function initMap() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
+  writeUserData();
 	// Cargo info sobre las Zonas
   var Zonas = cargarZonas();
   // muestro las Zonas en el mapa
@@ -38,7 +39,7 @@ function buscarDireccion(geocodificador, mapa, marcador){
   // geocodificar la direccion
   var direccionlatlng = geocodeAddress(geocodificador, mapa, direccion, ciudad, marcador);
   // listar la direccion en la variable que le corresponde a la zona
-  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, poligonosZonas, direccion);
+  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
   //lista[numero].push(ultimadireccion);
 
   // Eliminar los tips
@@ -255,7 +256,7 @@ function geocodeAddress(geocodificador, mapa, address, locality, marcador) {
 function enQueZonaEsta(latlng, poligonos, ultimadireccion){
   let lista = [];
 	for (let numero = 0; numero < poligonos.length; numero++) {
-    if (google.maps.geometry.poly.containsLocation(latlng, poligonos[numero].path)) // compara la direccion con la zona
+    if (google.maps.geometry.poly.containsLocation(latlng, poligonos[numero].coordenadas)) // compara la direccion con la zona
       lista[numero].push(ultimadireccion);
   }
   return lista;
