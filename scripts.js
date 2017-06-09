@@ -8,7 +8,6 @@ function initMap() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
-  writeUserData();
 	// Cargo info sobre las Zonas
   var Zonas = cargarZonas();
   // muestro las Zonas en el mapa
