@@ -1,4 +1,5 @@
 /*jshint esversion: 6*/
+
 function initZoner(){
   // Cargo mapa
   var mapa = initMap();
@@ -11,16 +12,20 @@ function initZoner(){
   // variable para encontrar la direccion
   var geocoder = new google.maps.Geocoder();
   var marker = new google.maps.Marker({map: mapa});
-	// Al hacer click en buscar geocodificar la direccion
+
+  // Al hacer click en buscar geocodificar la direccion
   document.getElementById('buscar').addEventListener('click', function() {
     buscarDireccion(geocoder, mapa, marker);
     document.getElementById('direccion').value = "";
   });
+
+  // listar la direccion en la variable que le corresponde a la zona
+  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
+  //lista[numero].push(ultimadireccion);
+
+  // Eliminar los tips
+  eliminarElemento("tips");
 }
-
-
-
-
 
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
 
@@ -47,12 +52,6 @@ function buscarDireccion(geocodificador, map, marcador){
   var ciudad = document.getElementById('ciudad').value;
   // geocodificar la direccion
   var direccionlatlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
-  // listar la direccion en la variable que le corresponde a la zona
-  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
-  //lista[numero].push(ultimadireccion);
-
-  // Eliminar los tips
-  eliminarElemento("tips");
 }
 
 //Agregar Polygons
