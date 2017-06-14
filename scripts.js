@@ -11,20 +11,21 @@ function initZoner(){
   mostrarZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
   // variable para encontrar la direccion
   var geocoder = new google.maps.Geocoder();
-  var marker = new google.maps.Marker({map: mapa});
+  var marcador = new google.maps.Marker({map: mapa});
 
   // Al hacer click en buscar geocodificar la direccion
   document.getElementById('buscar').addEventListener('click', function() {
-    var direccionlatlng = buscarDireccion(geocoder, mapa, marker);
+    let direccion = document.getElementById('direccion').value;
+    let ciudad = document.getElementById('ciudad').value;
+    // geocodificar la direccion
+    GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
+    var latlng = marcador.getPosition();
     // listar la direccion en la variable que le corresponde a la zona
-    var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
+    var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
     blanquearInput("direccion");
+    eliminarElemento("tips");
   });
-
   //lista[numero].push(ultimadireccion);
-
-  // Eliminar los tips
-  eliminarElemento("tips");
 }
 
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
@@ -46,15 +47,7 @@ function initMap() {
   });
   return map;
 }
-// FUNCION PARA buscar la direccion ingresada
-function buscarDireccion(geocodificador, map, marcador){
-  let direccion = document.getElementById('direccion').value;
-  let ciudad = document.getElementById('ciudad').value;
-  // geocodificar la direccion
-  let latlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
 
-  return latlng;
-}
 //Agregar Polygons
 function cargarZonas(){
   let zona =
@@ -245,17 +238,15 @@ function mostrarZonasEnHTML(zona, id, clase){
   return elemento;
 }
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
-function geocodeAddress(geocodificador, map, address, locality, marcador) {
-  var posicion = geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
+function GeocodificarDireccion(geocodificador, map, address, locality, marcador) {
+  geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {                                // si google pudo geocodificar la direccion
       //map.setCenter(results[0].geometry.location);       // Centrar del mapa
       marcador.setPosition(results[0].geometry.location);
-      return results[0].geometry.location;
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
   });
-  return posicion;
 }
 // FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
 function enQueZonaEsta(latlng, poligonos, ultimadireccion){
