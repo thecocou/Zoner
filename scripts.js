@@ -27,10 +27,6 @@ function initZoner(){
   eliminarElemento("tips");
 }
 
-function blanquearInput(elementID){
-  document.getElementById('elementID').value = "";
-}
-
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
 
   // AGREGAR LA ULTIMA DIRECCION AL ARRAY
@@ -38,6 +34,7 @@ function blanquearInput(elementID){
 
   // Guardar direccion ingresada
   //listar(direccionesIngresadas,"direcciones","");
+
 
   // FUNCION PARA INICIAR EL MAPA
 function initMap() {
@@ -49,7 +46,6 @@ function initMap() {
   });
   return map;
 }
-
 // FUNCION PARA buscar la direccion ingresada
 function buscarDireccion(geocodificador, map, marcador){
   let direccion = document.getElementById('direccion').value;
@@ -59,7 +55,6 @@ function buscarDireccion(geocodificador, map, marcador){
 
   return latlng;
 }
-
 //Agregar Polygons
 function cargarZonas(){
   let zona =
@@ -217,7 +212,6 @@ function cargarZonas(){
   ];
   return zona;
 }
-
 // FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
 function mostrarZonasEnMapa(zona, map){
   let poligonos = [];
@@ -234,7 +228,6 @@ function mostrarZonasEnMapa(zona, map){
 	}
   return poligonos;
 }
-
 // FUNCION PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
 function mostrarZonasEnHTML(zona, id, clase){
   let elemento = [];
@@ -251,7 +244,6 @@ function mostrarZonasEnHTML(zona, id, clase){
   }
   return elemento;
 }
-
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
 function geocodeAddress(geocodificador, map, address, locality, marcador) {
   geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
@@ -264,7 +256,6 @@ function geocodeAddress(geocodificador, map, address, locality, marcador) {
     }
   });
 }
-
 // FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
 function enQueZonaEsta(latlng, poligonos, ultimadireccion){
   let lista = [];
@@ -274,7 +265,6 @@ function enQueZonaEsta(latlng, poligonos, ultimadireccion){
   }
   return lista;
 }
-
 // FUNCION PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
 function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
   // agrego las direcciones a las zonas de la derecha segun corresponda
@@ -283,6 +273,15 @@ function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
   elemento.innerHTML = direcciones2;
 
   document.getElementById(id).appendChild(elemento);
+}
+// FUNCION PARA ELIMINAR UN ELEMENTO
+function eliminarElemento(elemento){
+	if (document.getElementById(elemento))
+		document.getElementById(elemento).remove();
+}
+// FUNCION PARA DEJAR EN BLANCO UN INPUT
+function blanquearInput(elemento){
+  document.getElementById(elemento).value = "";
 }
 /*
 //FUNCION PARA IMPRIMIR ARRAY EN EL HTML
@@ -294,8 +293,3 @@ function listar(direcciones, id, lista) {
   document.getElementById(id).innerHTML = lista;
 }
 */
-// FUNCION PARA ELIMINAR UN ELEMENTO
-function eliminarElemento(elemento){
-	if (document.getElementById(elemento))
-		document.getElementById(elemento).remove();
-}
