@@ -246,7 +246,7 @@ function mostrarZonasEnHTML(zona, id, clase){
 }
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
 function geocodeAddress(geocodificador, map, address, locality, marcador) {
-  geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
+  var posicion = geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {                                // si google pudo geocodificar la direccion
       //map.setCenter(results[0].geometry.location);       // Centrar del mapa
       marcador.setPosition(results[0].geometry.location);
@@ -255,6 +255,7 @@ function geocodeAddress(geocodificador, map, address, locality, marcador) {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
   });
+  return posicion;
 }
 // FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
 function enQueZonaEsta(latlng, poligonos, ultimadireccion){
