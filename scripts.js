@@ -14,9 +14,10 @@ function initZoner(){
   var marker = new google.maps.Marker({map: mapa});
 
   // Al hacer click en buscar geocodificar la direccion
-  document.getElementById('buscar').addEventListener('click', function() {
-    var direccionlatlng = buscarDireccion(geocoder, mapa, marker);
+  var direccionlatlng = document.getElementById('buscar').addEventListener('click', function() {
+    var latlng = buscarDireccion(geocoder, mapa, marker);
     document.getElementById('direccion').value = "";
+    return latlng;
   });
 
   // listar la direccion en la variable que le corresponde a la zona
