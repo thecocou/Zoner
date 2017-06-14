@@ -213,7 +213,6 @@ function cargarZonas(){
   return zona;
 }
 
-
 // FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
 function mostrarZonasEnMapa(zona, map){
   let poligonos = [];
