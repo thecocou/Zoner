@@ -15,7 +15,7 @@ function initZoner(){
 
   // Al hacer click en buscar geocodificar la direccion
   document.getElementById('buscar').addEventListener('click', function() {
-    buscarDireccion(geocoder, mapa, marker);
+    var directionlatlng = buscarDireccion(geocoder, mapa, marker);
     document.getElementById('direccion').value = "";
   });
 
@@ -51,7 +51,9 @@ function buscarDireccion(geocodificador, map, marcador){
   var direccion = document.getElementById('direccion').value;
   var ciudad = document.getElementById('ciudad').value;
   // geocodificar la direccion
-  var direccionlatlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
+  var latlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
+
+  return latlng;
 }
 
 //Agregar Polygons
