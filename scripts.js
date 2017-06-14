@@ -20,6 +20,7 @@ function initZoner(){
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
     var latlng = marcador.getPosition();
+    console.log(latlng);
     // listar la direccion en la variable que le corresponde a la zona
     var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
     blanquearInput("direccion");
