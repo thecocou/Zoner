@@ -14,17 +14,21 @@ function initZoner(){
   var marker = new google.maps.Marker({map: mapa});
 
   // Al hacer click en buscar geocodificar la direccion
-  //var direccionlatlng = document.getElementById('buscar').addEventListener('click', function() {
-    let latlng = buscarDireccion(geocoder, mapa, marker);
-    document.getElementById('direccion').value = "";
-  //});
+  document.getElementById('buscar').addEventListener('click', function() {
+    var direccionlatlng = buscarDireccion(geocoder, mapa, marker);
+    // listar la direccion en la variable que le corresponde a la zona
+    var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
+    blanquearInput("direccion");
+  });
 
-  // listar la direccion en la variable que le corresponde a la zona
-  var listaDeDirecciones = enQueZonaEsta(direccionlatlng, Zonas, direccion);
   //lista[numero].push(ultimadireccion);
 
   // Eliminar los tips
   eliminarElemento("tips");
+}
+
+function blanquearInput(elementID){
+  document.getElementById('elementID').value = "";
 }
 
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
