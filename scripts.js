@@ -15,7 +15,7 @@ function initZoner(){
 
   // Al hacer click en buscar geocodificar la direccion
   var direccionlatlng = document.getElementById('buscar').addEventListener('click', function() {
-    var latlng = buscarDireccion(geocoder, mapa, marker);
+    let latlng = buscarDireccion(geocoder, mapa, marker);
     document.getElementById('direccion').value = "";
     return latlng;
   });
@@ -49,10 +49,10 @@ function initMap() {
 
 // FUNCION PARA buscar la direccion ingresada
 function buscarDireccion(geocodificador, map, marcador){
-  var direccion = document.getElementById('direccion').value;
-  var ciudad = document.getElementById('ciudad').value;
+  let direccion = document.getElementById('direccion').value;
+  let ciudad = document.getElementById('ciudad').value;
   // geocodificar la direccion
-  var latlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
+  let latlng = geocodeAddress(geocodificador, map, direccion, ciudad, marcador);
 
   return latlng;
 }
