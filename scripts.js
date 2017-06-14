@@ -15,7 +15,7 @@ function initZoner(){
 
   // Al hacer click en buscar geocodificar la direccion
   document.getElementById('buscar').addEventListener('click', function() {
-    var directionlatlng = buscarDireccion(geocoder, mapa, marker);
+    var direccionlatlng = buscarDireccion(geocoder, mapa, marker);
     document.getElementById('direccion').value = "";
   });
 
