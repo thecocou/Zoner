@@ -16,7 +16,7 @@ function initZoner(){
   var direccion = document.getElementById('direccion').value;
   var ciudad = document.getElementById('ciudad').value;
   // Al hacer click en buscar geocodificar la direccion
-  botonBuscar.addEventListener('click', function(marcador) {
+  botonBuscar.addEventListener('click', function(geocoder, mapa, direccion, ciudad, marcador) {
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
     console.log(marcador);
