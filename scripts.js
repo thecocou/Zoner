@@ -20,12 +20,13 @@ function initZoner(){
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
     console.log(marcador);
+
     var latlng = marcador.getPosition();
     // listar la direccion en la variable que le corresponde a la zona
     var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
 
-    blanquearInput("direccion");
-    eliminarElemento("tips");
+  //  blanquearInput("direccion");
+  //  eliminarElemento("tips");
   });
   //lista[numero].push(ultimadireccion);
 }
@@ -237,11 +238,11 @@ function mostrarZonasEnHTML(zona, id, clase){
   return elemento;
 }
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
-function GeocodificarDireccion(geocodificador, map, address, locality, marcador) {
+function GeocodificarDireccion(geocodificador, map, address, locality, Marker) {
   geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {                                // si google pudo geocodificar la direccion
       //map.setCenter(results[0].geometry.location);       // Centrar del mapa
-      marcador.setPosition(results[0].geometry.location);
+      Marker.setPosition(results[0].geometry.location);
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
