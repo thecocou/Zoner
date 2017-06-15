@@ -11,7 +11,7 @@ function initZoner(){
   mostrarZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
   // variable para encontrar la direccion
   var geocoder = new google.maps.Geocoder();
-  var marcador = google.maps.Marker({map: mapa});
+  var marcador = new google.maps.Marker({map: mapa});
   var botonBuscar = document.getElementById('buscar')
 
   // Al hacer click en buscar geocodificar la direccion
