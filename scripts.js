@@ -10,11 +10,10 @@ function initZoner(){
   // Cargo Zonas a la barra lateral
   mostrarZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
   // Al hacer click en buscar geocodificar la direccion
-  botonBuscar.addEventListener('click', function() {
+  document.getElementById('buscar').addEventListener('click', function() {
     // variable para encontrar la direccion
     var geocoder = new google.maps.Geocoder();
     var marcador = new google.maps.Marker({map: mapa});
-    var botonBuscar = document.getElementById('buscar');
     var direccion = document.getElementById('direccion').value;
     var ciudad = document.getElementById('ciudad').value;
     // geocodificar la direccion
