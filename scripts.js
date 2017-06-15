@@ -15,16 +15,12 @@ function initZoner(){
   var botonBuscar = document.getElementById('buscar');
   var direccion = document.getElementById('direccion').value;
   var ciudad = document.getElementById('ciudad').value;
-
   // Al hacer click en buscar geocodificar la direccion
-  botonBuscar.addEventListener('click', function() {
+  botonBuscar.addEventListener('click', function(marcador) {
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
-
     console.log(marcador);
-
     var latlng = marcador.getPosition();
-
     // listar la direccion en la variable que le corresponde a la zona
     var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
 
