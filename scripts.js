@@ -13,10 +13,11 @@ function initZoner(){
   var geocoder = new google.maps.Geocoder();
   var marcador = new google.maps.Marker({map: mapa});
   var botonBuscar = document.getElementById('buscar');
-  var direccion = document.getElementById('direccion').value;
-  var ciudad = document.getElementById('ciudad').value;
+
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
+    var direccion = document.getElementById('direccion').value;
+    var ciudad = document.getElementById('ciudad').value;
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
     console.log(marcador);
