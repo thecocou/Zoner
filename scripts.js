@@ -243,7 +243,7 @@ function GeocodificarDireccion(geocodificador, map, address, locality, Marker) {
     if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
       //map.setCenter(results[0].geometry.location);       // Centrar del mapa
       Marker.setPosition(results[0].geometry.location);
-      console.log(Marker.getPosition());
+      console.log(Marker.getPosition().lat(), Marker.getPosition().lng());
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
