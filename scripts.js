@@ -19,16 +19,20 @@ function initZoner(){
     let ciudad = document.getElementById('ciudad').value;
     // geocodificar la direccion
     GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
-    var latlng = marcador.getPosition();
+
+    var latlng = [{
+      lat: marcador.getPosition().lat(),
+      lng: marcador.getPosition().lng()
+    }];
     console.log(latlng);
     // listar la direccion en la variable que le corresponde a la zona
     var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
+
     blanquearInput("direccion");
     eliminarElemento("tips");
   });
   //lista[numero].push(ultimadireccion);
 }
-
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
 
   // AGREGAR LA ULTIMA DIRECCION AL ARRAY
@@ -36,7 +40,6 @@ function initZoner(){
 
   // Guardar direccion ingresada
   //listar(direccionesIngresadas,"direcciones","");
-
 
   // FUNCION PARA INICIAR EL MAPA
 function initMap() {
@@ -48,7 +51,6 @@ function initMap() {
   });
   return map;
 }
-
 //Agregar Polygons
 function cargarZonas(){
   let zona =
