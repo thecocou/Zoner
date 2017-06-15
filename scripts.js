@@ -12,7 +12,7 @@ function initZoner(){
   // variable para encontrar la direccion
   var geocoder = new google.maps.Geocoder();
   var marcador = new google.maps.Marker({map: mapa});
-  var botonBuscar = document.getElementById('buscar')
+  var botonBuscar = document.getElementById('buscar');
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
@@ -240,9 +240,10 @@ function mostrarZonasEnHTML(zona, id, clase){
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
 function GeocodificarDireccion(geocodificador, map, address, locality, Marker) {
   geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {                                // si google pudo geocodificar la direccion
+    if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
       //map.setCenter(results[0].geometry.location);       // Centrar del mapa
       Marker.setPosition(results[0].geometry.location);
+      console.log(Marker.getPosition());
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
