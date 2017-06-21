@@ -4,39 +4,29 @@ function initZoner(){
   // Cargo mapa
   var mapa = initMap();
 	// Cargo info sobre las Zonas
-  var Zonas = cargarZonas();
+  var Zonas = obtenerZonas();
   // muestro las Zonas en el mapa
-  var poligonosZonas = mostrarZonasEnMapa(Zonas, mapa);
+  var poligonosZonas = setearZonasEnMapa(Zonas, mapa);
   // Cargo Zonas a la barra lateral
-  mostrarZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
-  // variable para encontrar la direccion
+  setearZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
+
   var geocoder = new google.maps.Geocoder();
   var marcador = new google.maps.Marker({map: mapa});
   var botonBuscar = document.getElementById('buscar');
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
-    var direccion = document.getElementById('direccion').value;
-    var ciudad = document.getElementById('ciudad').value;
     // geocodificar la direccion
-    GeocodificarDireccion(geocoder, mapa, direccion, ciudad, marcador);
-    console.log(marcador);
-
-    var latlng = marcador.getPosition();
+    var inputData = GeocodificarDireccion(geocoder, mapa, marcador);
+    console.log(inputData);
     // listar la direccion en la variable que le corresponde a la zona
-    var listaDeDirecciones = enQueZonaEsta(latlng, Zonas, direccion);
+    var listaDeDirecciones = enQueZonaEsta(inputData, Zonas);
   });
   //lista[numero].push(ultimadireccion);
   blanquearInput("direccion");
   eliminarElemento("tips");
 }
   //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
-
-  // AGREGAR LA ULTIMA DIRECCION AL ARRAY
-  //direccionesIngresadas.push(address);
-
-  // Guardar direccion ingresada
-  //listar(direccionesIngresadas,"direcciones","");
 
   // FUNCION PARA INICIAR EL MAPA
 function initMap() {
@@ -45,11 +35,13 @@ function initMap() {
     center: {lat:-34.618356, lng:-58.433464},
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
+
   });
   return map;
 }
+
 //Agregar Polygons
-function cargarZonas(){
+function obtenerZonas(){
   let zona =
   [
     {
@@ -205,8 +197,9 @@ function cargarZonas(){
   ];
   return zona;
 }
+
 // FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
-function mostrarZonasEnMapa(zona, map){
+function setearZonasEnMapa(zona, map){
   let poligonos = [];
 	for (let numero = 0; numero < zona.length; numero++) {
 		poligonos[numero] = new google.maps.Polygon({
@@ -221,8 +214,9 @@ function mostrarZonasEnMapa(zona, map){
 	}
   return poligonos;
 }
+
 // FUNCION PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
-function mostrarZonasEnHTML(zona, id, clase){
+function setearZonasEnHTML(zona, id, clase){
   let elemento = [];
   for (let numero = 0; numero < zona.length; numero++) {
     // agrego las zonas al visor de la derecha
@@ -237,27 +231,44 @@ function mostrarZonasEnHTML(zona, id, clase){
   }
   return elemento;
 }
+
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
-function GeocodificarDireccion(geocodificador, map, address, locality, Marker) {
-  geocodificador.geocode({'address': address, componentRestrictions:{'locality': locality}}, function(results, status) {
+function GeocodificarDireccion(geocodificador, mapa, Marcador) {
+  var inputData = obtenerDatosDelInput();
+  geocodificador.geocode({'address': inputData.direccion, componentRestrictions:{'locality': inputData.ciudad}}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
-      //map.setCenter(results[0].geometry.location);       // Centrar del mapa
-      Marker.setPosition(results[0].geometry.location);
-      console.log(Marker.getPosition().lat(), Marker.getPosition().lng());
+      //mapa.setCenter(results[0].geometry.location);       // Centrar del mapa
+      Marcador.setPosition(results[0].geometry.location);
+      inputData.latlng = {
+        lat: Marcador.getPosition().lat(),
+        lng: Marcador.getPosition().lng()
+      };
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
   });
+  return inputData;
 }
+
+// FUNCION PARA OBTENER DIRECCION CIUDAD ETC INGRESADOS
+function obtenerDatosDelInput(){
+  var inputData = {
+    direccion: document.getElementById('direccion').value,
+    ciudad: document.getElementById('ciudad').value
+  };
+  return inputData;
+}
+
 // FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
-function enQueZonaEsta(latlng, poligonos, ultimadireccion){
+function enQueZonaEsta(latlng, poligonos){
   let lista = [];
 	for (let numero = 0; numero < poligonos.length; numero++) {
-    if (google.maps.geometry.poly.containsLocation(latlng, poligonos[numero].coordenadas)) // compara la direccion con la zona
-      lista[numero].push(ultimadireccion);
+    if (google.maps.geometry.poly.containsLocation(latlng.latlng, poligonos[numero].coordenadas)) // compara la direccion con la zona
+      lista[numero].push(latlng.direccion);
   }
   return lista;
 }
+
 // FUNCION PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
 function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
   // agrego las direcciones a las zonas de la derecha segun corresponda
@@ -267,15 +278,17 @@ function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
 
   document.getElementById(id).appendChild(elemento);
 }
+
 // FUNCION PARA ELIMINAR UN ELEMENTO
 function eliminarElemento(elemento){
-	if (document.getElementById(elemento))
 		document.getElementById(elemento).remove();
 }
+
 // FUNCION PARA DEJAR EN BLANCO UN INPUT
 function blanquearInput(elemento){
   document.getElementById(elemento).value = "";
 }
+
 /*
 //FUNCION PARA IMPRIMIR ARRAY EN EL HTML
 function listar(direcciones, id, lista) {
