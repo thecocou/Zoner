@@ -1,44 +1,145 @@
 /*jshint esversion: 6*/
 
 function initZoner(){
-  // Cargo mapa
-  var mapa = initMap();
+  // Cargo Mapa
+  var Mapa = initMap();
 	// Cargo info sobre las Zonas
   var Zonas = obtenerZonas();
-  // muestro las Zonas en el mapa
-  var poligonosZonas = setearZonasEnMapa(Zonas, mapa);
+  // muestro las Zonas en el Mapa
+  var poligonosZonas = setearZonasEnMapa(Zonas, Mapa);
   // Cargo Zonas a la barra lateral
   setearZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
 
   var geocoder = new google.maps.Geocoder();
-  var marcador = new google.maps.Marker({map: mapa});
+  var marcador = new google.maps.Marker({map: Mapa});
   var botonBuscar = document.getElementById('buscar');
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
     // geocodificar la direccion
-    var inputData = GeocodificarDireccion(geocoder, mapa, marcador);
-    console.log(inputData);
+    var CedulaDeNotificacion = GeocodificarDireccion(geocoder, Mapa, marcador);
     // listar la direccion en la variable que le corresponde a la zona
-    var listaDeDirecciones = enQueZonaEsta(inputData, Zonas);
+    console.log(CedulaDeNotificacion);
+    obtenerAqueZonaPertenece(CedulaDeNotificacion, poligonosZonas);
   });
   //lista[numero].push(ultimadireccion);
   blanquearInput("direccion");
   eliminarElemento("tips");
 }
-  //imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
+//imprimirDireccionesHTML(listaDeDirecciones, elemento, "Zona 1", "direccionesListadas");
 
-  // FUNCION PARA INICIAR EL MAPA
+// FUNCION PARA INICIAR EL MAPA
 function initMap() {
-  // Creo el mapa
-  var map = new google.maps.Map(document.getElementById('map'), {
+  // Creo el Mapa
+  var Mapa = new google.maps.Map(document.getElementById('map'), {
     center: {lat:-34.618356, lng:-58.433464},
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-
   });
-  return map;
+  return Mapa;
 }
+
+// FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
+function setearZonasEnMapa(zona, Mapa){
+  let poligonos = [];
+	for (let numero = 0; numero < zona.length; numero++) {
+		poligonos[numero] = new google.maps.Polygon({
+		  path: zona[numero].coordenadas,
+		  strokeColor: zona[numero].color,
+		  strokeOpacity: 0.8,
+		  strokeWeight: 0,
+		  fillColor: zona[numero].color,
+		  fillOpacity: 0.4,
+	  });
+	poligonos[numero].setMap(Mapa);
+	}
+  return poligonos;
+}
+
+// FUNCION PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
+function setearZonasEnHTML(zona, id, clase){
+  let elemento = [];
+  for (let numero = 0; numero < zona.length; numero++) {
+    // agrego las zonas al visor de la derecha
+    elemento[numero] = document.createElement("p"); // creo elemento
+      elemento[numero].className = clase; // le asigno la clase
+      elemento[numero].id = zona[numero].nombre; // asigno id
+      elemento[numero].innerHTML = zona[numero].nombre + " | Notificador: " + zona[numero].notificador + " |"; // imprimo nombre
+      elemento[numero].style.borderColor = zona[numero].color; // asigno color
+      elemento[numero].style.color = zona[numero].color; // asigno color
+    // Agrego el texto al elemento id
+    document.getElementById(id).appendChild(elemento[numero]);
+  }
+  return elemento;
+}
+
+// FUNCION PARA GEOCODIFICAR LA DIRECCION
+function GeocodificarDireccion(geocodificador, Mapa, Marcador) {
+  var CedulaDeNotificacion = obtenerDatosDelInput();
+  geocodificador.geocode({'address': CedulaDeNotificacion.direccion, componentRestrictions:{'locality': CedulaDeNotificacion.ciudad}}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
+      //Mapa.setCenter(results[0].geometry.location);       // Centrar del Mapa
+      Marcador.setPosition(results[0].geometry.location);
+      CedulaDeNotificacion.lat = Marcador.getPosition().lat();
+      CedulaDeNotificacion.lng = Marcador.getPosition().lng();
+    } else {
+      alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
+    }
+  });
+  return CedulaDeNotificacion;
+}
+
+// FUNCION PARA OBTENER DIRECCION CIUDAD ETC INGRESADOS
+function obtenerDatosDelInput(){
+  var inputData = {
+    direccion: document.getElementById('direccion').value,
+    ciudad: document.getElementById('ciudad').value
+  };
+  return inputData;
+}
+
+// FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
+function obtenerAqueZonaPertenece(CedulaDeNotificacion, poligonos){
+  let latLngActual = new google.maps.LatLng(CedulaDeNotificacion.lat, CedulaDeNotificacion.lng);
+  console.log(latLngActual + CedulaDeNotificacion.lat.value + CedulaDeNotificacion.lng.value);
+  let lista = [];
+	for (let numero = 0; numero < poligonos.length; numero++) {
+    if (google.maps.geometry.poly.containsLocation(latLngActual, poligonos)) // compara la direccion con la zona
+      lista[numero].push(CedulaDeNotificacion.direccion);
+  }
+  return lista;
+}
+
+// FUNCION PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
+function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
+  // agrego las direcciones a las zonas de la derecha segun corresponda
+  elemento = document.createElement("p"); // creo elemento
+  elemento.className = clase; // le asigno la clase
+  elemento.innerHTML = direcciones2;
+
+  document.getElementById(id).appendChild(elemento);
+}
+
+// FUNCION PARA ELIMINAR UN ELEMENTO
+function eliminarElemento(elemento){
+		document.getElementById(elemento).remove();
+}
+
+// FUNCION PARA DEJAR EN BLANCO UN INPUT
+function blanquearInput(elemento){
+  document.getElementById(elemento).value = "";
+}
+
+/*
+//FUNCION PARA IMPRIMIR ARRAY EN EL HTML
+function listar(direcciones, id, lista) {
+	for(let cantidad = 0; cantidad < direcciones.length; cantidad++) {
+		lista += "<br>" + direcciones[cantidad];
+	}
+  // mostrar lista en el elemento id
+  document.getElementById(id).innerHTML = lista;
+}
+*/
 
 //Agregar Polygons
 function obtenerZonas(){
@@ -197,105 +298,3 @@ function obtenerZonas(){
   ];
   return zona;
 }
-
-// FUNCION PARA MOSTRAR el array de ZONAS creadas EN EL MAPA
-function setearZonasEnMapa(zona, map){
-  let poligonos = [];
-	for (let numero = 0; numero < zona.length; numero++) {
-		poligonos[numero] = new google.maps.Polygon({
-		  path: zona[numero].coordenadas,
-		  strokeColor: zona[numero].color,
-		  strokeOpacity: 0.8,
-		  strokeWeight: 0,
-		  fillColor: zona[numero].color,
-		  fillOpacity: 0.4,
-	  });
-	poligonos[numero].setMap(map);
-	}
-  return poligonos;
-}
-
-// FUNCION PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
-function setearZonasEnHTML(zona, id, clase){
-  let elemento = [];
-  for (let numero = 0; numero < zona.length; numero++) {
-    // agrego las zonas al visor de la derecha
-    elemento[numero] = document.createElement("p"); // creo elemento
-      elemento[numero].className = clase; // le asigno la clase
-      elemento[numero].id = zona[numero].nombre; // asigno id
-      elemento[numero].innerHTML = zona[numero].nombre + " | Notificador: " + zona[numero].notificador + " |"; // imprimo nombre
-      elemento[numero].style.borderColor = zona[numero].color; // asigno color
-      elemento[numero].style.color = zona[numero].color; // asigno color
-    // Agrego el texto al elemento id
-    document.getElementById(id).appendChild(elemento[numero]);
-  }
-  return elemento;
-}
-
-// FUNCION PARA GEOCODIFICAR LA DIRECCION
-function GeocodificarDireccion(geocodificador, mapa, Marcador) {
-  var inputData = obtenerDatosDelInput();
-  geocodificador.geocode({'address': inputData.direccion, componentRestrictions:{'locality': inputData.ciudad}}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
-      //mapa.setCenter(results[0].geometry.location);       // Centrar del mapa
-      Marcador.setPosition(results[0].geometry.location);
-      inputData.latlng = {
-        lat: Marcador.getPosition().lat(),
-        lng: Marcador.getPosition().lng()
-      };
-    } else {
-      alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
-    }
-  });
-  return inputData;
-}
-
-// FUNCION PARA OBTENER DIRECCION CIUDAD ETC INGRESADOS
-function obtenerDatosDelInput(){
-  var inputData = {
-    direccion: document.getElementById('direccion').value,
-    ciudad: document.getElementById('ciudad').value
-  };
-  return inputData;
-}
-
-// FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
-function enQueZonaEsta(latlng, poligonos){
-  let lista = [];
-	for (let numero = 0; numero < poligonos.length; numero++) {
-    if (google.maps.geometry.poly.containsLocation(latlng.latlng, poligonos[numero].coordenadas)) // compara la direccion con la zona
-      lista[numero].push(latlng.direccion);
-  }
-  return lista;
-}
-
-// FUNCION PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
-function imprimirDireccionesHTML(direcciones2, elemento, id, clase){
-  // agrego las direcciones a las zonas de la derecha segun corresponda
-  elemento = document.createElement("p"); // creo elemento
-  elemento.className = clase; // le asigno la clase
-  elemento.innerHTML = direcciones2;
-
-  document.getElementById(id).appendChild(elemento);
-}
-
-// FUNCION PARA ELIMINAR UN ELEMENTO
-function eliminarElemento(elemento){
-		document.getElementById(elemento).remove();
-}
-
-// FUNCION PARA DEJAR EN BLANCO UN INPUT
-function blanquearInput(elemento){
-  document.getElementById(elemento).value = "";
-}
-
-/*
-//FUNCION PARA IMPRIMIR ARRAY EN EL HTML
-function listar(direcciones, id, lista) {
-	for(let cantidad = 0; cantidad < direcciones.length; cantidad++) {
-		lista += "<br>" + direcciones[cantidad];
-	}
-  // mostrar lista en el elemento id
-  document.getElementById(id).innerHTML = lista;
-}
-*/
