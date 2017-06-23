@@ -10,14 +10,17 @@ function initZoner(){
   // Cargo Zonas a la barra lateral
   setearZonasEnHTML(Zonas, "listaDeZonas", "nombreZona");
 
-  var geocoder = new google.maps.Geocoder();
+  var Geocoder = new google.maps.Geocoder();
   var marcador = new google.maps.Marker({map: Mapa});
   var botonBuscar = document.getElementById('buscar');
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
     // geocodificar la direccion
-    var CedulaDeNotificacion = GeocodificarDireccion(geocoder, Mapa, marcador);
+
+    var CedulaDeNotificacion = new Cedula();
+    CedulaDeNotificacion.geocodificarDireccion(Geocoder, Mapa, marcador);
+
     // listar la direccion en la variable que le corresponde a la zona
     console.log(CedulaDeNotificacion);
     obtenerAqueZonaPertenece(CedulaDeNotificacion, poligonosZonas);
@@ -72,40 +75,70 @@ function setearZonasEnHTML(zona, id, clase){
   }
   return elemento;
 }
-
+/*
 // FUNCION PARA GEOCODIFICAR LA DIRECCION
-function GeocodificarDireccion(geocodificador, Mapa, Marcador) {
-  var CedulaDeNotificacion = obtenerDatosDelInput();
-  geocodificador.geocode({'address': CedulaDeNotificacion.direccion, componentRestrictions:{'locality': CedulaDeNotificacion.ciudad}}, function(results, status) {
+function geocodificarDireccion(Mapa, Marcador) {
+  var geocoder = new google.maps.Geocoder();
+  var Cedula = obtenerDatosDelInput();
+  geocoder.geocode({'address': Cedula.direccion, componentRestrictions:{'locality': Cedula.ciudad}}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
       //Mapa.setCenter(results[0].geometry.location);       // Centrar del Mapa
       Marcador.setPosition(results[0].geometry.location);
-      CedulaDeNotificacion.lat = Marcador.getPosition().lat();
-      CedulaDeNotificacion.lng = Marcador.getPosition().lng();
+      Cedula.lat = ""+Marcador.getPosition().lat();
+      Cedula.lng = ""+Marcador.getPosition().lng();
     } else {
       alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
     }
   });
-  return CedulaDeNotificacion;
+  return Cedula;
 }
+*/
+
+class Cedula {
+  constructor() {
+    this.direccion = document.getElementById('direccion').value;
+    this.ciudad = document.getElementById('ciudad').value;
+  }
+
+  geocodificarDireccion(Geocoder, Mapa, Marcador) {
+
+    Geocoder.geocode({'address': this.direccion, componentRestrictions:{'locality': this.ciudad}}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
+        //Mapa.setCenter(results[0].geometry.location);       // Centrar del Mapa
+        Marcador.setPosition(results[0].geometry.location);
+        this.lat = Marcador.getPosition().lat();
+        this.lng = Marcador.getPosition().lng();
+      } else {
+        alert('No pude geocodificar la direccion por el siguiente motivo: ' + status);
+      }
+    });
+  }
+
+}
+
+
+
+
+
+
 
 // FUNCION PARA OBTENER DIRECCION CIUDAD ETC INGRESADOS
 function obtenerDatosDelInput(){
   var inputData = {
     direccion: document.getElementById('direccion').value,
-    ciudad: document.getElementById('ciudad').value
+    ciudad: document.getElementById('ciudad').value,
   };
   return inputData;
 }
 
 // FUNCION PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
-function obtenerAqueZonaPertenece(CedulaDeNotificacion, poligonos){
-  let latLngActual = new google.maps.LatLng(CedulaDeNotificacion.lat, CedulaDeNotificacion.lng);
-  console.log(latLngActual + CedulaDeNotificacion.lat.value + CedulaDeNotificacion.lng.value);
+function obtenerAqueZonaPertenece(Cedula, poligonos){
+  console.log("lat: " + Cedula + Cedula.lat + Cedula.direccion);
+  let latLngActual = new google.maps.LatLng(Cedula.lat, Cedula.lng);
   let lista = [];
 	for (let numero = 0; numero < poligonos.length; numero++) {
     if (google.maps.geometry.poly.containsLocation(latLngActual, poligonos)) // compara la direccion con la zona
-      lista[numero].push(CedulaDeNotificacion.direccion);
+      lista[numero].push(Cedula.direccion);
   }
   return lista;
 }
