@@ -20,7 +20,7 @@ function initZoner(){
     CedulaDeNotificacion = new Cedula(Mapa);
     CedulaDeNotificacion.geocodificarDireccion(Geocoder)
       .obtenerAqueZonaPertenece(poligonosZonas)
-      .imprimirCedulasEnHTML("Cedula", "CedulaStyle");
+      .imprimirCedulasEnHTML("Cedula", "cedulaStyle");
 
     blanquearInput("direccion");
     eliminarElemento("tips");
@@ -119,7 +119,7 @@ class Cedula {
     // agrego las direcciones a las zonas de la derecha segun corresponda
     elemento = document.createElement("p"); // creo elemento
     elemento.className = clase; // le asigno la clase
-    elemento.innerHTML += self.direccion + ", " + self.ciudad;
+    elemento.innerHTML = self.direccion + ", " + self.ciudad;
     document.getElementById(self.zona).appendChild(elemento);
 
     return this;

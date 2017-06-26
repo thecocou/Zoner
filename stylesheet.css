@@ -139,27 +139,16 @@ h2 {
   background-color: white;
 	border: 3px solid #00b8b2;
   text-align: left;
-  color:white;
   padding: 10px 10px 10px 20px;
   font-size: 15px;
   font-family: Tahoma;
 }
 
-.direccionesListadas {
+.cedulaStyle {
   text-align: left;
   color:#336798;
-  padding: 10px 0 10px 20px;
-  margin-left: -20px;
-  width: 100%;
-  font-size: 15px;
-  font-family: Tahoma;
   background-color: white;
-}
-
-#CedulaStyle {
-  text-align: left;
-  color:#336798;
-  padding: 0 0 10px 20px;
+  padding: 0 0px 0px 10px;
   font-size: 15px;
   font-family: Tahoma;
 }
