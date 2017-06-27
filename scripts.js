@@ -11,7 +11,6 @@ function initZoner(){
     Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
       .setearZonasEnMapa(Mapa)
       .setearZonasEnHTML("listaDeZonas", "nombreZona");
-      console.log(Zonas[n]);
   }
 
   var Geocoder = new google.maps.Geocoder();
@@ -115,9 +114,9 @@ class Cedula {
     let self = this;
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
   	for (let numero = 0; numero < Zonas.length; numero++) {
-      console.log("chequeando la zona numero " + numero + ": " + google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos));
+      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos));
       if (numero === 2){//google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos)){
-        console.log("lo encontre en la zona " + (numero + 1));
+        console.log("lo encontre en " + Zonas[numero].nombre);
         self.zona += (numero + 1);
       }
     }
