@@ -20,7 +20,7 @@ function initZoner(){
     CedulaDeNotificacion = new Cedula(Mapa);
     CedulaDeNotificacion.geocodificarDireccion(Geocoder)
       .obtenerAqueZonaPertenece(poligonosZonas)
-      .imprimirCedulasEnHTML("Cedula", "cedulaStyle");
+      .imprimirCedulasEnHTML("cedulaStyle");
 
     blanquearInput("direccion");
     eliminarElemento("tips");
@@ -80,6 +80,7 @@ class Cedula {
     this.Marcador = new google.maps.Marker({map: Mapa});
     this.zona = "Zona ";
     this.latlng = new google.maps.LatLng({lat: 0, lng: 0});
+    this.HTMLement = document.createElement("p"); // creo elemento
   }
 
   // Metodo para geocodificar la direccion
@@ -114,13 +115,12 @@ class Cedula {
   }
 
   // metodo PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
-  imprimirCedulasEnHTML(elemento, clase){
+  imprimirCedulasEnHTML(clase){
     let self = this;
     // agrego las direcciones a las zonas de la derecha segun corresponda
-    elemento = document.createElement("p"); // creo elemento
-    elemento.className = clase; // le asigno la clase
-    elemento.innerHTML = self.direccion + ", " + self.ciudad;
-    document.getElementById(self.zona).appendChild(elemento);
+    self.HTMLement.className = clase; // le asigno la clase
+    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad;
+    document.getElementById(self.zona).appendChild(self.HTMLement);
 
     return this;
   }
