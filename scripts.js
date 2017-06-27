@@ -98,10 +98,11 @@ class Cedula {
     Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
         self.Marcador.setPosition(results[0].geometry.location);   // ubicar marcador
-        self.latlng = {
+        self.latlng = new google.maps.LatLng({
           lat: self.Marcador.getPosition().lat(),
           lng: self.Marcador.getPosition().lng()
-        };
+        });
+        console.log(self.latlng);
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
       }
@@ -109,12 +110,12 @@ class Cedula {
     return this;
   }
 
-  // metodo PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCIONES
+  // metodo PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCION
   obtenerAqueZonaPertenece(Zonas){
     let self = this;
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
   	for (let numero = 0; numero < Zonas.length; numero++) {
-      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos));
+      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos) + self.latlng);
       if (numero === 2){//google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos)){
         console.log("lo encontre en " + Zonas[numero].nombre);
         self.zona += (numero + 1);
@@ -123,14 +124,12 @@ class Cedula {
     return this;
   }
 
-  // metodo PARA mostrar la LISTA de DIRECCIONES EN LA ZONA QUE CORRESPONDA
+  // metodo PARA mostrar la DIRECCION en la ZONA
   imprimirCedulasEnHTML(clase){
     let self = this;
-    // agrego las direcciones a las zonas de la derecha segun corresponda
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad;
-    document.getElementById(self.zona).appendChild(self.HTMLement);
-
+    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad; // configuro el texto
+    document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
 }
@@ -148,8 +147,7 @@ function blanquearInput(elemento){
 
 //cargar info de las zonas (temporal)
 function obtenerZonas(){
-  let zona =
-  [
+  let zona = [
     {
       //   zona 1
       nombre: "Zona 1",
