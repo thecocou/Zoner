@@ -98,7 +98,7 @@ class Cedula {
     Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
         self.Marcador.setPosition(results[0].geometry.location);   // ubicar marcador
-        self.latlng = new google.maps.LatLng({
+        self.latlng = ({
           lat: self.Marcador.getPosition().lat(),
           lng: self.Marcador.getPosition().lng()
         });
