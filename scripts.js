@@ -31,7 +31,6 @@ function initZoner(){
     console.log(CedulaDeNotificacion);
   });
 }
-//imprimirCedulasEnHTML(elemento,"direccionesListadas");
 
 // FUNCION PARA INICIAR EL MAPA
 function initMap() {
@@ -64,14 +63,14 @@ class Zona {
 
   // metodo PARA MOSTRAR ZONAS creadas EN EL MAPA
   setearZonasEnMapa(Mapa){
-    self = this;
+    let self = this;
   	self.poligonos.setMap(Mapa);
     return this;
   }
 
   // Metodo PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
   setearZonasEnHTML(id, clase){
-    self = this;
+    let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
     self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador + " |"; // imprimo nombre
