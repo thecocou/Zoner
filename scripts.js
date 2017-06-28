@@ -82,7 +82,7 @@ class Cedula {
     this.direccion = document.getElementById('direccion').value;
     this.ciudad = document.getElementById('ciudad').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
-    this.zona = "Zona ";
+    this.zona = "";
     this.HTMLement = document.createElement("p");
   }
 
@@ -95,7 +95,7 @@ class Cedula {
 
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 
-        self.zona += self.obtenerAqueZonaPertenece(Zonas, latlng);
+        self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);
         self.imprimirCedulasEnHTML("cedulaStyle");
 
       } else {
@@ -112,7 +112,7 @@ class Cedula {
       console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos));
       if (google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos)){
         console.log("lo encontre en " + Zonas[numero].nombre);
-        return (numero + 1);
+        return Zonas[numero].nombre;
       }
     }
   }
