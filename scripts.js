@@ -1,10 +1,8 @@
 /*jshint esversion: 6*/
 
 function initZoner(){
-  // Cargo Mapa
-  var Mapa = initMap();
-	// Cargo info sobre las Zonas
-  var infoZonas = obtenerZonas();
+  var Mapa = initMap();  // Cargo Mapa
+  var infoZonas = obtenerZonas();	// Cargo info sobre las Zonas
   var Zonas = [];
 
   for (n = 0; n < infoZonas.length; n++) {
@@ -15,11 +13,9 @@ function initZoner(){
 
   var Geocoder = new google.maps.Geocoder();
   var botonBuscar = document.getElementById('buscar');
-  //var numero=0;
   var CedulaDeNotificacion = [];
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
-
     CedulaDeNotificacion = new Cedula(Mapa)
       .geocodificarDireccion(Geocoder)
       .obtenerAqueZonaPertenece(Zonas)
