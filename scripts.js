@@ -14,12 +14,11 @@ function initZoner(){
   var Geocoder = new google.maps.Geocoder();
   var botonBuscar = document.getElementById('buscar');
   var CedulaDeNotificacion = [];
+
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
     CedulaDeNotificacion = new Cedula(Mapa)
-      .geocodificarDireccion(Geocoder)
-      .obtenerAqueZonaPertenece(Zonas)
-      .imprimirCedulasEnHTML("cedulaStyle");
+      .geocodificarDireccion(Geocoder, Zonas);
 
     blanquearInput("direccion");
     eliminarElemento("tips");
@@ -84,21 +83,21 @@ class Cedula {
     this.ciudad = document.getElementById('ciudad').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
     this.zona = "Zona ";
-    this.latlng = new google.maps.LatLng({lat: 0, lng: 0});
     this.HTMLement = document.createElement("p");
   }
 
   // Metodo para geocodificar la direccion
-  geocodificarDireccion(Geocoder) {
+  geocodificarDireccion(Geocoder, Zonas) {
     let self = this;
     Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
         self.Marcador.setPosition(results[0].geometry.location);   // ubicar marcador
-        self.latlng = ({
-          lat: self.Marcador.getPosition().lat(),
-          lng: self.Marcador.getPosition().lng()
-        });
-        console.log(self.latlng);
+
+        var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+
+        self.zona += self.obtenerAqueZonaPertenece(Zonas, latlng);
+        self.imprimirCedulasEnHTML("cedulaStyle");
+
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
       }
@@ -107,17 +106,15 @@ class Cedula {
   }
 
   // metodo PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCION
-  obtenerAqueZonaPertenece(Zonas){
-    let self = this;
+  obtenerAqueZonaPertenece(Zonas, latlng){
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
-  	for (let numero = 0; numero < Zonas.length; numero++) {
-      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos) + self.latlng);
-      if (numero === 2){//google.maps.geometry.poly.containsLocation(self.latlng, Zonas[numero].poligonos)){
+    for (let numero = 0; numero < Zonas.length; numero++) {
+      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos));
+      if (google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos)){
         console.log("lo encontre en " + Zonas[numero].nombre);
-        self.zona += (numero + 1);
+        return (numero + 1);
       }
     }
-    return this;
   }
 
   // metodo PARA mostrar la DIRECCION en la ZONA
@@ -166,7 +163,7 @@ function obtenerZonas(){
                     {lat:-34.5875521, lng:-58.38708529},
                     {lat:-34.5725909, lng:-58.36649882},
                     {lat:-34.6060835, lng:-58.33353984}],
-     color: "#FF00BF"
+      color: "#FF00BF"
     },
     {
 	  // Zona 3
