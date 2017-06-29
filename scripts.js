@@ -2,33 +2,31 @@
 
 function initZoner(){
   var Mapa = initMap();  // Cargo Mapa
-  var infoZonas = obtenerZonas();	// Cargo info sobre las Zonas
-  var Zonas = [];
+  var infoZonas = cargarDataSobreZonas();	// Cargo info sobre las Zonas
+  var Zonas = crearZonas(infoZonas, Mapa);
 
-  for (n = 0; n < infoZonas.length; n++) {
-    Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
-      .setearZonasEnMapa(Mapa)
-      .setearZonasEnHTML("listaDeZonas", "nombreZona");
-  }
-
-  var Geocoder = new google.maps.Geocoder();
   var botonBuscar = document.getElementById('buscar');
+  var Geocoder = new google.maps.Geocoder();
   var CedulaDeNotificacion = [];
-
+  var numero = 0;
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
-    CedulaDeNotificacion = new Cedula(Mapa)
-      .geocodificarDireccion(Geocoder, Zonas);
+    CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
+    console.log(CedulaDeNotificacion[numero]);
+    numero++;
 
     blanquearInput("direccion");
     eliminarElemento("tips");
-    console.log(CedulaDeNotificacion);
   });
+
+//  var marker = document.getElementById('Zona 1');
+//  marker.addEventListener('click', function() {
+//    CedulaDeNotificacion.switchVisibilidadDeMarcador();
+//  });
 }
 
 // FUNCION PARA INICIAR EL MAPA
 function initMap() {
-  // Creo el Mapa
   var Mapa = new google.maps.Map(document.getElementById('map'), {
     center: {lat:-34.618356, lng:-58.433464},
     zoom: 12,
@@ -91,12 +89,12 @@ class Cedula {
     let self = this;
     Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
-        self.Marcador.setPosition(results[0].geometry.location);   // ubicar marcador
 
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-
-        self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);
-        self.imprimirCedulasEnHTML("cedulaStyle");
+        self.Marcador.setPosition(results[0].geometry.location);  // ubicar marcador
+        self.Marcador.setAnimation(google.maps.Animation.BOUNCE);
+        self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);  // obtener la zona
+        self.imprimirCedulasEnHTML("cedulaStyle");                 // agregar la cedula al html
 
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
@@ -109,9 +107,9 @@ class Cedula {
   obtenerAqueZonaPertenece(Zonas, latlng){
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
     for (let numero = 0; numero < Zonas.length; numero++) {
-      console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos));
+      //console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos));
       if (google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos)){
-        console.log("lo encontre en " + Zonas[numero].nombre);
+        //console.log("lo encontre en " + Zonas[numero].nombre);
         return Zonas[numero].nombre;
       }
     }
@@ -122,9 +120,25 @@ class Cedula {
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
     self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad; // configuro el texto
+//    self.HTMLement.onClick = self.switchVisibilidadDeMarcador(this.id);
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
+
+  switchVisibilidadDeMarcador() {
+    self.Marcador.getVisible() ? self.Marcador.setVisible(false).setAnimation(null) : self.Marcador.setVisible(true).setAnimation(null);
+  }
+}
+
+// Funcion para crear las zonas
+function crearZonas(infoZonas, Mapa) {
+  var Zonas = [];
+  for (n = 0; n < infoZonas.length; n++) {
+    Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
+      .setearZonasEnMapa(Mapa)
+      .setearZonasEnHTML("listaDeZonas", "nombreZona");
+  }
+  return Zonas;
 }
 
 // FUNCION PARA ELIMINAR UN ELEMENTO
@@ -139,7 +153,7 @@ function blanquearInput(elemento){
 }
 
 //cargar info de las zonas (temporal)
-function obtenerZonas(){
+function cargarDataSobreZonas(){
   let zona = [
     {
       //   zona 1
