@@ -92,7 +92,7 @@ class Cedula {
 
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
         self.Marcador.setPosition(results[0].geometry.location);  // ubicar marcador
-        self.Marcador.setAnimation(google.maps.Animation.BOUNCE);
+        self.Marcador.setAnimation(google.maps.Animation.DROP);
         self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);  // obtener la zona
         self.imprimirCedulasEnHTML("cedulaStyle");                 // agregar la cedula al html
 
