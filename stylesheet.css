@@ -3,7 +3,8 @@
 }
 
 html {
-  height: 100%;
+  height: auto;
+  width: 80%;
 }
 
 div {
@@ -16,7 +17,8 @@ body {
 }
 
 #sitio {
-  margin: 20 auto 0 auto;
+  width: 80%;
+    margin: 20px auto 0 auto;
 }
 
 #contenedor {
