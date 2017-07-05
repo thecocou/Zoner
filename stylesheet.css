@@ -13,23 +13,20 @@ div {
 body {
   background-color: #336798;
   background-image: url(cartographerb.png);
-
 }
 
 #sitio {
-  width: 80%;
-    margin: 20px auto 0 auto;
+  width: 1000px;
+  margin: 30px auto;
 }
 
 #contenedor {
   display: inline-block;
   position: relative;
-  float: left;
-  margin: 20px;
 
   background-color: #A7A37E;
-  border: 3px solid #00b8b2;
-	border-radius: 10px 10px 10px 10px;
+  border: 2px solid #00b8b2;
+	border-radius: 20px;
 }
 
 #barraLateral {
@@ -40,7 +37,7 @@ body {
   margin: 20px;
 
 	background-color: white;
-	border: 3px solid #00b8b2;
+	border: 2px solid #00b8b2;
 	border-radius: 0px;
 }
 
@@ -64,11 +61,10 @@ h2 {
 }
 
 #encabezado {
-	height: 60px;
+	height: 65px;
 	width: 800px;
 	background-color: #046380;
-	margin-bottom: 10px;
-	border-radius: 10px 10px 0 0;
+	border-radius: 20px 20px 0 0;
 }
 
 #ciudad{
@@ -114,10 +110,9 @@ h2 {
 
 #pieDePagina {
 	color: #fce000;
-	height: 50px;
+	height: 30px;
 	width: 800px;
 	background-color: #007373;
-	clear: both;
 	border-radius: 0 0 10px 10px;
 }
 
@@ -141,9 +136,9 @@ h2 {
 
 .nombreZona {
   background-color: white;
-	border: 3px solid #00b8b2;
+	border: 1px solid #00b8b2;
   text-align: left;
-  padding: 10px 10px 10px 20px;
+  padding: 10px;
   font-size: 15px;
   font-family: Tahoma;
 }
@@ -152,7 +147,7 @@ h2 {
   text-align: left;
   color: #336798;
   background-color: white;
-  padding: 0 0px 0px 10px;
+  padding: 0 0 0 10px;
   font-size: 15px;
   font-family: Tahoma;
 }
