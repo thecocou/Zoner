@@ -139,17 +139,19 @@ h2 {
 	border: 1px solid #00b8b2;
   text-align: left;
   padding: 10px;
-  font-size: 15px;
   font-family: Tahoma;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .cedulaStyle {
   text-align: left;
-  color: #336798;
   background-color: white;
+  color: #336798;
   padding: 0 0 0 10px;
-  font-size: 15px;
   font-family: Tahoma;
+  font-size: 15px;
+  font-weight: normal;
 }
 
 #tips {
