@@ -8,45 +8,39 @@
 	</head>
 	<body>
 		<div id=sitio>
-		<div id=contenedor>
-			<!-- titulo -->
-			<div id="encabezado">
-				<h1>Zoner</h1><h2>| v0.5 |</h2>
+			<div id=contenedor>
+				<!-- titulo -->
+				<div id="encabezado">
+					<img id="logo" src="img/logozoner2.png" width="150px">
+					<!--boton search-->
+					<div class="buscador">
+						<input id="ciudad" placeholder="Ingrese la ciudad" type="text" />
+						<input id="direccion" placeholder="Ingrese direccion" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
+						<input id="buscar" type="submit" value="Buscar"/>
+					</div>
+				</div>
 
-				<!--boton search-->
-				<div class="buscador">
-					<input id="ciudad" placeholder="Ingrese la ciudad" type="text" />
-					<input id="direccion" placeholder="Ingrese direccion" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
-					<input id="buscar" type="submit" value="Buscar"/>
+				<!--Cuadro principal -->
+				<div id="caja">
+					<div id="map"></div>
+					<!-- cargo mapa -->
+					<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl_xZ4WCwJOWHQuvJcOl1HvW-ViYNzK9Q&callback=initZoner"></script>
+				</div>
+				<!-- Pie de pagina -->
+				<div id="pieDePagina">
 				</div>
 			</div>
-
-			<!--Cuadro principal -->
-			<div id="caja">
-				<div id="map"></div>
-				<!-- cargo mapa -->
-				<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl_xZ4WCwJOWHQuvJcOl1HvW-ViYNzK9Q&callback=initZoner"></script>
-			</div>
-
-			<!-- Pie de pagina -->
-			<div id="pieDePagina">
-			</div>
-		</div>
-
-		<!-- Barra lateral -->
+			<!-- Barra lateral -->
 			<div id="barraLateral">
-				<div id="listaDeZonas">
-					<div id="direcciones"></div>
-				</div>
 				<div id="menu">
 					<p id="tips">
 						1. Configura las zonas.</br>
 						2. ingresa la direccion para conocer a que zona pertence.</br>
 						3. bla bla bla</br>
 					</p>
-					<button class="botones" type="button">crear nueva zona</button>
-					<input class="textBox" placeholder="nombre de la zona" type="text"/>
-					<input class="textBox" placeholder="nombre del notificador" type="text"/>
+				</div>
+				<div id="listaDeZonas">
+					<div id="direcciones"></div>
 				</div>
 			</div>
 		</div>

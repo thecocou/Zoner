@@ -65,7 +65,7 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador + " |"; // imprimo nombre
+    self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style.color = self.color; // asigno color
     // Agrego el texto al elemento id
