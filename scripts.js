@@ -13,6 +13,9 @@ function initZoner(){
   botonBuscar.addEventListener('click', function() {
 
     setearDefaultMapOptions(Mapa);
+    setCursorOnDefaultField();
+
+
 
     CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
     console.log(CedulaDeNotificacion[numero]);
@@ -165,6 +168,10 @@ function blanquearInput(elemento){
 function setearDefaultMapOptions(map) {
   map.setCenter({lat:-34.618356, lng:-58.433464});
   map.setZoom(12);
+}
+
+function setCursorOnDefaultField() {
+  document.getElementById("direccion").focus();
 }
 
 //cargar info de las zonas (temporal)
