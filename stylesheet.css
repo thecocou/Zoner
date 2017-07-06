@@ -40,25 +40,6 @@ body {
   margin: 20px;
 }
 
-h1 {
-  display: inline-block;
-  text-align: left;
-  font-family: monospace;
-  color: #ff903e;
-  margin-top: 10px;
-  font-size: 30px;
-  padding: 5px 0px 0px 10px;
-}
-
-h2 {
-  display: inline-block;
-  text-align: right;
-  color: white;
-  padding: 10px;
-  font-size: 10px;
-  font-family: Tahoma;
-}
-
 #encabezado {
 	height: 65px;
 	width: 800px;
@@ -119,14 +100,9 @@ h2 {
 	border-radius: 0 0 20px 20px;
 }
 
-.textBox {
-  width: 100%;
-  padding: 10px;
-}
-
 .nombreZona {
   background-color: white;
-	border: 1px solid #00b8b2;
+	border: 1px solid;
   text-align: center;
   padding: 10px;
   margin: 20px;
@@ -137,10 +113,10 @@ h2 {
 }
 
 .cedulaStyle {
-  text-align: left;
+  text-align: center;
   background-color: white;
   color: #336798;
-  padding: 0 0 0 10px;
+  padding: 20px;
   font-family: Tahoma;
   font-size: 15px;
   font-weight: normal;
@@ -155,7 +131,7 @@ h2 {
 }
 
 .columna {
-  border-collapse: separate;
+  border-collapse: collapse;
   width: 33%;
   margin: 15px auto;
   padding: 3px;
