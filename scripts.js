@@ -13,12 +13,18 @@ function initZoner(){
   botonBuscar.addEventListener('click', function() {
     CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
     console.log(CedulaDeNotificacion[numero]);
-    numero++;
+
+    if (numero > 0) {
+    var anterior = numero - 1;
+    CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
+    }
 
     blanquearInput("direccion");
     blanquearInput("expediente");
     blanquearInput("observaciones");
     eliminarElemento("tips");
+
+    numero++;
   });
 
 //  var marker = document.getElementById('Zona 1');
@@ -80,7 +86,7 @@ class Zona {
 class Cedula {
   constructor(Mapa) {
     this.direccion = document.getElementById('direccion').value;
-    this.ciudad = "Capital Federal"// document.getElementById('ciudad').value;
+    this.ciudad = "Capital Federal";
     this.expediente = document.getElementById('expediente').value;
     this.observaciones = document.getElementById('observaciones').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
@@ -130,7 +136,9 @@ class Cedula {
   }
 
   switchVisibilidadDeMarcador() {
-    self.Marcador.getVisible() ? self.Marcador.setVisible(false).setAnimation(null) : self.Marcador.setVisible(true).setAnimation(null);
+    let self = this;
+    self.Marcador.getVisible() ? self.Marcador.setVisible(false) : self.Marcador.setVisible(true);
+    return this;
   }
 }
 
