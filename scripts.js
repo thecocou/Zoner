@@ -16,6 +16,8 @@ function initZoner(){
     numero++;
 
     blanquearInput("direccion");
+    blanquearInput("remito");
+    blanquearInput("observaciones");
     eliminarElemento("tips");
   });
 

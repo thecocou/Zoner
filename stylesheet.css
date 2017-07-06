@@ -113,23 +113,10 @@ h2 {
 
 #pieDePagina {
 	color: #fce000;
-	height: 30px;
-	width: 800px;
-	background-color: #007373;
-	border-radius: 0 0 10px 10px;
-}
-
-.botones {
-  width: 100%;
-  text-align: center;
-  color: white;
-  padding: 20px;
-  border: 2px;
-  background-color: #636363;
-}
-
-.botones:hover{
-  background-color: #639369;
+	height: 50px;
+	width: 100%;
+	background-color: rgba(4,99,128,0.7);
+	border-radius: 0 0 20px 20px;
 }
 
 .textBox {
