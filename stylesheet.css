@@ -116,7 +116,6 @@ body {
   text-align: center;
   background-color: white;
   color: #336798;
-  padding: 20px;
   font-family: Tahoma;
   font-size: 15px;
   font-weight: normal;
@@ -130,9 +129,9 @@ body {
   font-family: Tahoma;
 }
 
-.columna {
+.col {
   border-collapse: collapse;
+  border: solid white thin;
   width: 33%;
-  margin: 15px auto;
-  padding: 3px;
+  padding: 5px;
 }

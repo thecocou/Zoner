@@ -15,8 +15,6 @@ function initZoner(){
     setearDefaultMapOptions(Mapa);
     setCursorOnDefaultField();
 
-
-
     CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
     console.log(CedulaDeNotificacion[numero]);
 
@@ -25,11 +23,7 @@ function initZoner(){
       CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
     }
 
-    blanquearInput("direccion");
-    blanquearInput("expediente");
-    blanquearInput("observaciones");
-    eliminarElemento("tips");
-
+    blanquearInputsYTips();
     numero++;
   });
 }
@@ -74,7 +68,7 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = "<th>" + self.nombre + " | Notificador: " + self.notificador + "</th>"; // imprimo nombre
+    self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style.color = self.color; // asigno color
     // Agrego el texto al elemento id
@@ -130,7 +124,7 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = '<td class="columna">' + self.direccion + '</td><td class="columna">' + self.expediente + '</td><td class="columna">' + self.observaciones + '</td>'; // configuro el texto
+    self.HTMLement.innerHTML = '<td class="col">' + self.direccion + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td><td class="col">M</td><td class="col">X</td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
@@ -151,6 +145,14 @@ function crearZonas(infoZonas, Mapa) {
       .setearZonasEnHTML("listaDeZonas", "nombreZona");
   }
   return Zonas;
+}
+
+
+function blanquearInputsYTips(){
+  blanquearInput("direccion");
+  blanquearInput("expediente");
+  blanquearInput("observaciones");
+  eliminarElemento("tips");
 }
 
 // FUNCION PARA ELIMINAR UN ELEMENTO
