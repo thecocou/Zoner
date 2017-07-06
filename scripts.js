@@ -16,7 +16,7 @@ function initZoner(){
     numero++;
 
     blanquearInput("direccion");
-    blanquearInput("remito");
+    blanquearInput("expediente");
     blanquearInput("observaciones");
     eliminarElemento("tips");
   });
@@ -81,7 +81,7 @@ class Cedula {
   constructor(Mapa) {
     this.direccion = document.getElementById('direccion').value;
     this.ciudad = "Capital Federal"// document.getElementById('ciudad').value;
-    this.remito = document.getElementById('remito').value;
+    this.expediente = document.getElementById('expediente').value;
     this.observaciones = document.getElementById('observaciones').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
     this.zona = "";
@@ -123,7 +123,7 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad + "<br> remito: " + self.remito + "<br>" + self.observaciones; // configuro el texto
+    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad + "<br> expediente: " + self.expediente + "<br>" + self.observaciones; // configuro el texto
 //    self.HTMLement.onClick = self.switchVisibilidadDeMarcador(this.id);
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
