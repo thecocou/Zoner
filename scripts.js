@@ -78,7 +78,9 @@ class Zona {
 class Cedula {
   constructor(Mapa) {
     this.direccion = document.getElementById('direccion').value;
-    this.ciudad = document.getElementById('ciudad').value;
+    this.ciudad = "Capital Federal"// document.getElementById('ciudad').value;
+    this.remito = document.getElementById('remito').value;
+    this.observaciones = document.getElementById('observaciones').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
     this.zona = "";
     this.HTMLement = document.createElement("p");
@@ -119,7 +121,7 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad; // configuro el texto
+    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad + "<br> remito: " + self.remito + "<br>" + self.observaciones; // configuro el texto
 //    self.HTMLement.onClick = self.switchVisibilidadDeMarcador(this.id);
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
@@ -201,7 +203,7 @@ function cargarDataSobreZonas(){
     },
     {
     // Zona 4
-      nombre: "Zona x",
+      nombre: "Zona X",
       notificador: "Xrivier",
       coordenadas: [{lat:-34.6204466, lng:-58.44124039},
                     {lat:-34.6263987, lng:-58.44043799},
