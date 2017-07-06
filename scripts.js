@@ -11,12 +11,15 @@ function initZoner(){
   var numero = 0;
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener('click', function() {
+
+    setearDefaultMapOptions(Mapa);
+
     CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
     console.log(CedulaDeNotificacion[numero]);
 
     if (numero > 0) {
-    var anterior = numero - 1;
-    CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
+      var anterior = numero - 1;
+      CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
     }
 
     blanquearInput("direccion");
@@ -26,11 +29,6 @@ function initZoner(){
 
     numero++;
   });
-
-//  var marker = document.getElementById('Zona 1');
-//  marker.addEventListener('click', function() {
-//    CedulaDeNotificacion.switchVisibilidadDeMarcador();
-//  });
 }
 
 // FUNCION PARA INICIAR EL MAPA
@@ -73,7 +71,7 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador; // imprimo nombre
+    self.HTMLzona.innerHTML = "<th>" + self.nombre + " | Notificador: " + self.notificador + "</th>"; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style.color = self.color; // asigno color
     // Agrego el texto al elemento id
@@ -91,7 +89,7 @@ class Cedula {
     this.observaciones = document.getElementById('observaciones').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
     this.zona = "";
-    this.HTMLement = document.createElement("p");
+    this.HTMLement = document.createElement("tr");
   }
 
   // Metodo para geocodificar la direccion
@@ -129,8 +127,7 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = self.direccion + ", " + self.ciudad + "<br> expediente: " + self.expediente + "<br>" + self.observaciones; // configuro el texto
-//    self.HTMLement.onClick = self.switchVisibilidadDeMarcador(this.id);
+    self.HTMLement.innerHTML = '<td class="columna">' + self.direccion + '</td><td class="columna">' + self.expediente + '</td><td class="columna">' + self.observaciones + '</td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
@@ -162,6 +159,12 @@ function eliminarElemento(elemento){
 // FUNCION PARA DEJAR EN BLANCO UN INPUT
 function blanquearInput(elemento){
   document.getElementById(elemento).value = "";
+}
+
+// FUNCION PARA SETEAR LA POSICION DEL MAPA POR DEFECTO
+function setearDefaultMapOptions(map) {
+  map.setCenter({lat:-34.618356, lng:-58.433464});
+  map.setZoom(12);
 }
 
 //cargar info de las zonas (temporal)

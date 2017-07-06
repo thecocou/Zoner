@@ -127,8 +127,10 @@ h2 {
 .nombreZona {
   background-color: white;
 	border: 1px solid #00b8b2;
-  text-align: left;
+  text-align: center;
   padding: 10px;
+  margin: 20px;
+  width: 500px;
   font-family: Tahoma;
   font-size: 15px;
   font-weight: bold;
@@ -150,4 +152,11 @@ h2 {
   padding: 20px;
   font-size: 15px;
   font-family: Tahoma;
+}
+
+.columna {
+  border-collapse: separate;
+  width: 33%;
+  margin: 15px auto;
+  padding: 3px;
 }
