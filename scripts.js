@@ -5,24 +5,23 @@ function initZoner(){
   var infoZonas = cargarDataSobreZonas();	// Cargo info sobre las Zonas
   var Zonas = crearZonas(infoZonas, Mapa);
 
-  var botonBuscar = document.getElementById('buscar');
   var Geocoder = new google.maps.Geocoder();
   var CedulaDeNotificacion = [];
   var numero = 0;
+
   // Al hacer click en buscar geocodificar la direccion
-  botonBuscar.addEventListener('click', function() {
+  var botonBuscar = document.getElementById('buscar');
+  botonBuscar.addEventListener("click", function() {
 
-    setearDefaultMapOptions(Mapa);
-    setCursorOnDefaultField();
-
-    CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas);
-    console.log(CedulaDeNotificacion[numero]);
+    CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas); // console.log(CedulaDeNotificacion[numero]);
 
     if (numero > 0) {
       var anterior = numero - 1;
       CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
     }
 
+    setearDefaultMapOptions(Mapa);
+    setCursorOnDefaultField();
     blanquearInputsYTips();
     numero++;
   });
@@ -57,19 +56,20 @@ class Zona {
   }
 
   // metodo PARA MOSTRAR ZONAS creadas EN EL MAPA
-  setearZonasEnMapa(Mapa){
+  setearZonasEnMapa(Mapa) {
     let self = this;
   	self.poligonos.setMap(Mapa);
     return this;
   }
 
   // Metodo PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
-  setearZonasEnHTML(id, clase){
+  setearZonasEnHTML(id, clase) {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = '<th colspan="5" background-color="self.color">' + self.nombre +
-        "<span class='notbold'>  |  Notificador: " + self.notificador + '</span></th>'; // imprimo nombre
+    self.HTMLzona.innerHTML = '<th>' + self.nombre +
+      "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + '</span></th><td colspan="2">'+
+      '<button id="'+self.HTMLzona.id+'" class="descargar" onclick="exportarExcel(this.id)">Descargar</button></td>'; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style.color = "black"; // asigno color
     self.HTMLzona.style["background-color"] = self.color;
@@ -149,6 +149,9 @@ function crearZonas(infoZonas, Mapa) {
   return Zonas;
 }
 
+function exportarExcel(tabla) {
+  console.log(document.getElementById(tabla));
+}
 
 function blanquearInputsYTips(){
   blanquearInput("direccion");
