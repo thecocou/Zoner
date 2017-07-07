@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background-color: #336798;
+  background-color: "white";
   background-image: url(img/cartographerb.png);
 }
 
@@ -27,8 +27,8 @@ body {
   position: relative;
 
   background-color: rgba(167,163,126,0.5);
-  border: 0.5px solid #00b8b2;
-	border-radius: 20px;
+  border: 0.5px solid rgba(136,0,77,1);
+	border-radius: 20px 20px 0 0;
 }
 
 #barraLateral {
@@ -41,7 +41,7 @@ body {
 #encabezado {
 	height: 65px;
 	width: 800px;
-	background-color: rgba(4,99,128,0.7);
+	background-color: rgba(57,73,144,0.9);
 	border-radius: 20px 20px 0 0;
   margin-bottom: 5px;
 }
@@ -78,23 +78,13 @@ body {
     background-color: #FF2C0D;
 }
 
-#caja {
+
+
+#map {
   display: inline-block;
 	height: 600px;
 	width: 800px;
 	margin-top: 5px;
-}
-
-#map {
-	height: 100%;
-}
-
-#pieDePagina {
-	color: #fce000;
-	height: 40px;
-	width: 100%;
-	background-color: rgba(4,99,128,0.7);
-	border-radius: 0 0 20px 20px;
 }
 
 .nombreZona {
@@ -112,7 +102,7 @@ body {
 .cedulaStyle {
   text-align: center;
   background-color: white;
-  color: #336798;
+  color: black;
   font-size: 15px;
   font-weight: normal;
 }
