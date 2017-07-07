@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Tahoma;
 }
 
 html {
@@ -7,12 +8,9 @@ html {
   width: 80%;
 }
 
-div {
-}
-
 body {
   background-color: #336798;
-  background-image: url(cartographerb.png);
+  background-image: url(img/cartographerb.png);
 }
 
 #logo {
@@ -45,6 +43,7 @@ body {
 	width: 800px;
 	background-color: rgba(4,99,128,0.7);
 	border-radius: 20px 20px 0 0;
+  margin-bottom: 5px;
 }
 
 #expediente {
@@ -68,7 +67,7 @@ body {
   display: inline-block;
   float: right;
 	width: 20%;
-  height: 74px;
+  height: 76px;
   color: white;
   cursor: pointer;
   background-color: #fc594f;
@@ -83,9 +82,7 @@ body {
   display: inline-block;
 	height: 600px;
 	width: 800px;
-	background-color: #A7DBD8;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 5px;
 }
 
 #map {
@@ -94,7 +91,7 @@ body {
 
 #pieDePagina {
 	color: #fce000;
-	height: 50px;
+	height: 40px;
 	width: 100%;
 	background-color: rgba(4,99,128,0.7);
 	border-radius: 0 0 20px 20px;
@@ -104,10 +101,10 @@ body {
   background-color: white;
 	border: 1px solid;
   text-align: center;
-  padding: 10px;
+  padding: 0px;
   margin: 20px;
   width: 500px;
-  font-family: Tahoma;
+
   font-size: 15px;
   font-weight: bold;
 }
@@ -116,7 +113,6 @@ body {
   text-align: center;
   background-color: white;
   color: #336798;
-  font-family: Tahoma;
   font-size: 15px;
   font-weight: normal;
 }
@@ -126,7 +122,6 @@ body {
   color: #336798;
   padding: 20px;
   font-size: 15px;
-  font-family: Tahoma;
 }
 
 .col {
@@ -134,4 +129,13 @@ body {
   border: solid white thin;
   width: 33%;
   padding: 5px;
+}
+
+.notbold {
+  font-weight: normal;
+  color: white;
+}
+
+th {
+  padding: 10px;
 }

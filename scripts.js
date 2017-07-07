@@ -45,7 +45,7 @@ class Zona {
     this.notificador = notificador;
     this.coordenadas = coords;
     this.color = color;
-    this.HTMLzona = document.createElement("p");
+    this.HTMLzona = document.createElement("table");
     this.poligonos = new google.maps.Polygon({
 		  path: this.coordenadas,
 		  strokeColor: this.color,
@@ -68,9 +68,10 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = self.nombre + " | Notificador: " + self.notificador; // imprimo nombre
+    self.HTMLzona.innerHTML = '<th colspan="5" background-color="self.color">' + self.nombre + "<span class='notbold'> | Notificador: </span>" + self.notificador + '</th>'; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
-    self.HTMLzona.style.color = self.color; // asigno color
+    self.HTMLzona.style.color = "white"; // asigno color
+    self.HTMLzona.style["background-color"] = self.color;
     // Agrego el texto al elemento id
     document.getElementById(id).appendChild(self.HTMLzona);
     return this;
