@@ -52,7 +52,7 @@ class Zona {
 		  strokeOpacity: 0.8,
 		  strokeWeight: 0,
 		  fillColor: this.color,
-		  fillOpacity: 0.4,
+		  fillOpacity: 1,
 	  });
   }
 
@@ -68,9 +68,10 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = '<th colspan="5" background-color="self.color">' + self.nombre + "<span class='notbold'> | Notificador: </span>" + self.notificador + '</th>'; // imprimo nombre
+    self.HTMLzona.innerHTML = '<th colspan="5" background-color="self.color">' + self.nombre +
+        "<span class='notbold'>  |  Notificador: " + self.notificador + '</span></th>'; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
-    self.HTMLzona.style.color = "white"; // asigno color
+    self.HTMLzona.style.color = "black"; // asigno color
     self.HTMLzona.style["background-color"] = self.color;
     // Agrego el texto al elemento id
     document.getElementById(id).appendChild(self.HTMLzona);
@@ -189,7 +190,7 @@ function cargarDataSobreZonas(){
 					          {lat:-34.6060835, lng:-58.33353984},
 					          {lat:-34.6281219, lng:-58.33079326},
 					          {lat:-34.6552390, lng:-58.36606979}],
-      color: "#FE2E2E"
+      color: "rgba(254,46,46,0.6)"
     },
     {
       // Zona 2
@@ -202,7 +203,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.5875521, lng:-58.38708529},
                     {lat:-34.5725909, lng:-58.36649882},
                     {lat:-34.6060835, lng:-58.33353984}],
-      color: "#FF00BF"
+      color: "rgba(255,0,191,0.6)"
     },
     {
 	  // Zona 3
@@ -222,7 +223,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.6562693, lng:-58.41643709},
                     {lat:-34.6613460, lng:-58.41696739},
                     {lat:-34.6639581, lng:-58.39113235}],
-      color: "#ff903e"
+      color: "rgba(255,144,62,0.6)"
     },
     {
     // Zona 4
@@ -247,7 +248,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.6365836, lng:-58.49363560},
                     {lat:-34.6307082, lng:-58.46964969},
                     {lat:-34.6279616, lng:-58.45985559}],
-      color: "#fce000"
+      color: "rgba(252,224,0,0.6)"
     },
     {
 	  // Zona 5
@@ -272,7 +273,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.5968256, lng:-58.49676880},
                     {lat:-34.5897030, lng:-58.51784959},
                     {lat:-34.6157624, lng:-58.53086471}],
-      color: "#00c2ac"
+      color: "rgba(0,194,172,0.6)"
     },
 	  {
        // Zona 6
@@ -293,7 +294,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.6087526, lng:-58.43045240},
                     {lat:-34.6154380, lng:-58.43004600},
                     {lat:-34.6114395, lng:-58.42100729}],
-      color: "#cf3aa0"
+      color: "rgba(207,58,160,0.6)"
     },
     {
 	    // Zona 7
@@ -311,7 +312,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.5458023, lng:-58.41507911},
                     {lat:-34.5284799, lng:-58.44941139},
                     {lat:-34.5498319, lng:-58.49987983}],
-      color: "#0098da"
+      color: "rgba(0,152,218,0.6)"
     },
     {
       // Zona 8
@@ -328,7 +329,7 @@ function cargarDataSobreZonas(){
                     {lat:-34.5778040, lng:-58.40857744},
                     {lat:-34.5787050, lng:-58.40679645},
                     {lat:-34.5607169, lng:-58.39018809}],
-      color: "#0000FF"
+      color: "rgba(0,0,255,0.6)"
     }
   ];
   return zona;
