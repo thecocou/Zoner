@@ -137,6 +137,15 @@ th {
   padding: 10px;
 }
 
+.botonEliminar {
+
+  color: white;
+  background-color: red;
+  cursor: pointer;
+  border-radius: 100%;
+  border: 0;
+}
+
 .descargar {
     border-radius: 10px;
     cursor: pointer;

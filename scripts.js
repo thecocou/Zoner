@@ -126,7 +126,11 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length + '<td class="col">' + self.direccion + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td><td class="col">M</td><td class="col">X</td>'; // configuro el texto
+    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length
+      + '<td class="col">' + self.direccion
+      + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>'
+      + '<td class="col">M</td><td class="col">'
+      + '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
@@ -164,6 +168,11 @@ function blanquearInputsYTips(){
 function eliminarElemento(elemento){
   if(document.getElementById(elemento))
 		document.getElementById(elemento).remove();
+}
+
+function eliminarRow(row) {
+  var rowSeleccionada = row.parentNode.parentNode;
+  rowSeleccionada.parentNode.removeChild(rowSeleccionada);
 }
 
 // FUNCION PARA DEJAR EN BLANCO UN INPUT
