@@ -171,8 +171,10 @@ function eliminarElemento(elemento){
 }
 
 function eliminarRow(row) {
-  var rowSeleccionada = row.parentNode.parentNode;
-  rowSeleccionada.parentNode.removeChild(rowSeleccionada);
+  if (confirm("Estas seguro que deseas eliminar esta cedula?")) {
+    var rowSeleccionada = row.parentNode.parentNode;
+    rowSeleccionada.parentNode.removeChild(rowSeleccionada);
+  }
 }
 
 // FUNCION PARA DEJAR EN BLANCO UN INPUT
