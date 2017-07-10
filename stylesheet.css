@@ -138,9 +138,8 @@ th {
 }
 
 .botonEliminar {
-
   color: white;
-  background-color: red;
+  background-color: RGB(255, 0, 17);
   cursor: pointer;
   border-radius: 100%;
   border: 0;
