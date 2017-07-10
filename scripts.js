@@ -67,7 +67,7 @@ class Zona {
     let self = this;
     self.HTMLzona.className = clase; // le asigno la clase
     self.HTMLzona.id = self.nombre; // asigno id
-    self.HTMLzona.innerHTML = '<th>' + self.nombre +
+    self.HTMLzona.innerHTML = '<th colspan="2">' + self.nombre +
       "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + '</span></th><td colspan="2">'+
       '<button id="'+self.HTMLzona.id+'" class="descargar" onclick="exportarExcel(this.id)">Descargar</button></td>'; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
@@ -126,7 +126,7 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = '<td class="col">' + self.direccion + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td><td class="col">M</td><td class="col">X</td>'; // configuro el texto
+    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length + '<td class="col">' + self.direccion + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td><td class="col">M</td><td class="col">X</td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
