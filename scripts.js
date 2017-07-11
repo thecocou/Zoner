@@ -129,7 +129,7 @@ class Cedula {
     self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length
       + '<td class="col">' + self.direccion
       + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>'
-      + '<td class="col">M</td><td class="col">'
+      + '<td class="col"><button class="marcadorIcon"></td><td class="col">'
       + '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;

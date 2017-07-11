@@ -137,7 +137,25 @@ th {
   padding: 10px;
 }
 
+.marcadorIcon {
+  position: absolute;
+  margin: -10px -10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50% 50% 50% 0;
+  border: 0;
+  background: #fc594f;
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+
+.marcadorIcon off {
+  background: #grey;
+}
+
 .botonEliminar {
+  width: 20px;
+  height: 20px;
   color: white;
   background-color: RGB(255, 0, 17);
   cursor: pointer;
@@ -146,11 +164,10 @@ th {
 }
 
 .descargar {
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1px solid #A7A37E;
-    background-color: grey;
-    padding: 5px;
-    color: white;
-
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #A7A37E;
+  background-color: grey;
+  padding: 5px;
+  color: white;
 }
