@@ -41,33 +41,29 @@ body {
 #encabezado {
 	height: 65px;
 	width: 800px;
-	background-color: rgba(57,73,144,0.9);
+	background-color: rgba(117,143,194,0.9);
 	border-radius: 20px 20px 0 0;
   margin-bottom: 5px;
 }
 
-#expediente {
-  width: 30%;
-}
-
-#observaciones {
-  width: 80%
+#expediente, #observaciones {
+  width: 25%
 }
 
 .buscador input[type=text]{
   display: inline-block;
   float: left;
   padding: 10px;
-  width: 50%;
-  background-color: #E6E2AF;
+  width: 40%;
+  background-color: #eee;
   border:1px solid #A7A37E;
 }
 
 .buscador input[type=submit]{
   display: inline-block;
   float: right;
-	width: 20%;
-  height: 76px;
+	width: 10%;
+  padding: 10px;
   color: white;
   cursor: pointer;
   background-color: #fc594f;
