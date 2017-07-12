@@ -126,11 +126,11 @@ class Cedula {
   imprimirCedulasEnHTML(clase){
     let self = this;
     self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length
-      + '<td class="col">' + self.direccion
-      + '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>'
-      + '<td class="col"><button class="marcadorIcon"></td><td class="col">'
-      + '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // configuro el texto
+    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length +
+      '<td class="col">' + self.direccion +
+      '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>' +
+      '<td class="col"><button class="marcadorIcon" onclick=""></td><td class="col">' +
+      '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // configuro el texto
     document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
     return this;
   }
@@ -151,6 +151,22 @@ function crearZonas(infoZonas, Mapa) {
       .setearZonasEnHTML("listaDeZonas", "nombreZona");
   }
   return Zonas;
+}
+
+function exportarCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(","));
+    }
+    // Download CSV file
+    downloadCSV(csv.join("n"), filename);
 }
 
 function exportarExcel(tabla) {

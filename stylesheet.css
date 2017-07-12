@@ -140,14 +140,15 @@ th {
   height: 18px;
   border-radius: 50% 50% 50% 0;
   border: 0;
-  background: #fc594f;
+  background: #grey;
   transform: rotate(-45deg);
   cursor: pointer;
 }
 
-.marcadorIcon off {
-  background: #grey;
+.activo {
+  background: #fc594f;
 }
+
 
 .botonEliminar {
   width: 20px;
