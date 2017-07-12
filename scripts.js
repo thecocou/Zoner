@@ -102,6 +102,7 @@ class Cedula {
         self.Marcador.setAnimation(google.maps.Animation.DROP);
         self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);  // obtener la zona
         self.imprimirCedulasEnHTML("cedulaStyle");                 // agregar la cedula al html
+        self.scrollHastaElElemento();
 
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
@@ -138,6 +139,13 @@ class Cedula {
   switchVisibilidadDeMarcador() {
     let self = this;
     self.Marcador.getVisible() ? self.Marcador.setVisible(false) : self.Marcador.setVisible(true);
+    return this;
+  }
+
+  scrollHastaElElemento() {
+    let self = this;
+    let element = self.HTMLement;
+    element.scrollIntoView(false);
     return this;
   }
 }

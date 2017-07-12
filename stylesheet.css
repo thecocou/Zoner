@@ -36,6 +36,8 @@ body {
   position: absolute;
 	float: right;
   margin: 20px;
+  height: 700px;
+  overflow: auto;
 }
 
 #encabezado {
