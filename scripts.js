@@ -1,34 +1,29 @@
 /*jshint esversion: 6*/
 
 function initZoner(){
-  var Mapa = initMap();  // Cargo Mapa
-  var infoZonas = cargarDataSobreZonas();	// Cargo info sobre las Zonas
-  var Zonas = crearZonas(infoZonas, Mapa);
+  var Mapa = cargarMapa();  // Cargo Mapa
+      infoZonas = cargarDataSobreZonas();	// Cargo info sobre las Zonas
+      Zonas = crearZonas(infoZonas, Mapa);
 
-  var Geocoder = new google.maps.Geocoder();
-  var CedulaDeNotificacion = [];
-  var numero = 0;
+      Geocoder = new google.maps.Geocoder();
+      CedulaDeNotificacion = [];
+      botonBuscar = document.getElementById('buscar');
+      numero = 0;
 
   // Al hacer click en buscar geocodificar la direccion
-  var botonBuscar = document.getElementById('buscar');
   botonBuscar.addEventListener("click", function() {
-
-    CedulaDeNotificacion[numero] = new Cedula(Mapa).geocodificarDireccion(Geocoder, Zonas); // console.log(CedulaDeNotificacion[numero]);
-
-    if (numero > 0) {
-      var anterior = numero - 1;
-      CedulaDeNotificacion[anterior].switchVisibilidadDeMarcador();
-    }
-
-    setearDefaultMapOptions(Mapa);
-    setCursorOnDefaultField();
+    CedulaDeNotificacion[numero] = new Cedula(Mapa)
+    .geocodificarDireccion(Geocoder, Zonas);
+    if (numero > 0) { ocultarMarcadorPrevio(numero, CedulaDeNotificacion); }
+    setearOpcionesDelMapaPorDefault(Mapa);
+    setearCursorEnCampoDireccion();
     blanquearInputsYTips();
     numero++;
   });
 }
 
 // FUNCION PARA INICIAR EL MAPA
-function initMap() {
+function cargarMapa() {
   var Mapa = new google.maps.Map(document.getElementById('map'), {
     center: {lat:-34.618356, lng:-58.433464},
     zoom: 12,
@@ -96,14 +91,11 @@ class Cedula {
     let self = this;
     Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
-
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-        self.Marcador.setPosition(results[0].geometry.location);  // ubicar marcador
-        self.Marcador.setAnimation(google.maps.Animation.DROP);
-        self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);  // obtener la zona
-        self.imprimirCedulasEnHTML("cedulaStyle");                 // agregar la cedula al html
-        self.scrollHastaElElemento();
-
+        self.Marcador.setPosition(results[0].geometry.location);                // ubicar marcador
+        self.Marcador.setAnimation(google.maps.Animation.DROP);                 // animar marcador
+        self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);               // obtener la zona
+        self.imprimirCedulasEnHTML("cedulaStyle").scrollHastaElemento();      // Agregar la cedula al html y hacer Scroll hasta esta
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
       }
@@ -115,9 +107,7 @@ class Cedula {
   obtenerAqueZonaPertenece(Zonas, latlng){
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
     for (let numero = 0; numero < Zonas.length; numero++) {
-      //console.log("chequeando en " + Zonas[numero].nombre + ": " + google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos));
       if (google.maps.geometry.poly.containsLocation(latlng, Zonas[numero].poligonos)){
-        //console.log("lo encontre en " + Zonas[numero].nombre);
         return Zonas[numero].nombre;
       }
     }
@@ -131,8 +121,8 @@ class Cedula {
       '<td class="col">' + self.direccion +
       '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>' +
       '<td class="col"><button class="marcadorIcon" onclick=""></td><td class="col">' +
-      '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // configuro el texto
-    document.getElementById(self.zona).appendChild(self.HTMLement); // lo agrego debajo de la zona
+      '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // creo las celdas
+    document.getElementById(self.zona).appendChild(self.HTMLement); // asigno las celdas a la tabla
     return this;
   }
 
@@ -142,7 +132,7 @@ class Cedula {
     return this;
   }
 
-  scrollHastaElElemento() {
+  scrollHastaElemento() {
     let self = this;
     let element = self.HTMLement;
     element.scrollIntoView(false);
@@ -161,22 +151,6 @@ function crearZonas(infoZonas, Mapa) {
   return Zonas;
 }
 
-function exportarCSV(filename) {
-    var csv = [];
-    var rows = document.querySelectorAll("table tr");
-
-    for (var i = 0; i < rows.length; i++) {
-        var row = [], cols = rows[i].querySelectorAll("td, th");
-
-        for (var j = 0; j < cols.length; j++)
-            row.push(cols[j].innerText);
-
-        csv.push(row.join(","));
-    }
-    // Download CSV file
-    downloadCSV(csv.join("n"), filename);
-}
-
 function exportarExcel(tabla) {
   console.log(document.getElementById(tabla));
 }
@@ -186,6 +160,11 @@ function blanquearInputsYTips(){
   blanquearInput("expediente");
   blanquearInput("observaciones");
   eliminarElemento("tips");
+}
+
+function ocultarMarcadorPrevio(numero, Cedula) {
+  var anterior = numero - 1;
+  Cedula[anterior].switchVisibilidadDeMarcador();
 }
 
 // FUNCION PARA ELIMINAR UN ELEMENTO
@@ -207,12 +186,12 @@ function blanquearInput(elemento){
 }
 
 // FUNCION PARA SETEAR LA POSICION DEL MAPA POR DEFECTO
-function setearDefaultMapOptions(map) {
+function setearOpcionesDelMapaPorDefault(map) {
   map.setCenter({lat:-34.618356, lng:-58.433464});
   map.setZoom(12);
 }
 
-function setCursorOnDefaultField() {
+function setearCursorEnCampoDireccion() {
   document.getElementById("direccion").focus();
 }
 
