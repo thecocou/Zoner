@@ -119,11 +119,17 @@ table {
   width: 5%;
 }
 
+@keyframes change-color {
+  0%   { background-color: yellow; }
+  100% { background-color: white; }
+}
+
+
 .col {
   border-collapse: collapse;
-  border: solid white thin;
   width: 33%;
   padding: 5px;
+  animation: change-color 10s forwards;
 }
 
 .notbold {

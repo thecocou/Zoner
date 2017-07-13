@@ -34,6 +34,17 @@ function cargarMapa() {
   return Mapa;
 }
 
+// Funcion para crear las zonas
+function crearZonas(infoZonas, Mapa) {
+  var Zonas = [];
+  for (n = 0; n < infoZonas.length; n++) {
+    Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
+      .setearZonasEnMapa(Mapa)
+      .setearZonasEnHTML();
+  }
+  return Zonas;
+}
+
 // CLASE ZONA
 class Zona {
   constructor(nombre, notificador, coords, color) {
@@ -51,22 +62,20 @@ class Zona {
 		  fillOpacity: 1,
 	  });
   }
-
   // metodo PARA MOSTRAR ZONAS creadas EN EL MAPA
   setearZonasEnMapa(Mapa) {
     let self = this;
   	self.poligonos.setMap(Mapa);
     return this;
   }
-
   // Metodo PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
   setearZonasEnHTML() {
     let self = this;
     self.HTMLzona.className = "nombreZona";   // le asigno la clase
     self.HTMLzona.id = self.nombre;           // asigno id
-    self.HTMLzona.innerHTML = '<th colspan="2">' + self.nombre +
-      "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + '</span></th><td colspan="2">'+
-      '<button id="'+self.HTMLzona.id+'" class="descargar" onclick="exportarExcel(this.id)">Descargar</button></td>'; // imprimo nombre
+    self.HTMLzona.innerHTML = "<th colspan='2'>" + self.nombre +
+      "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + "</span></th><td colspan='2'>" +
+      "<button id='" + self.HTMLzona.id + "'class='descargar' onclick='exportarExcel(this.id)'>Descargar</button></td>"; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style["background-color"] = self.color;
     // Agrego el texto al elemento id
@@ -85,7 +94,6 @@ class Cedula {
     this.zona = "";
     this.HTMLement = document.createElement("tr");
   }
-
   // Metodo para geocodificar la direccion
   geocodificarDireccion(Geocoder, Zonas) {
     let self = this;
@@ -95,14 +103,13 @@ class Cedula {
         self.Marcador.setPosition(results[0].geometry.location);                // ubicar marcador
         self.Marcador.setAnimation(google.maps.Animation.DROP);                 // animar marcador
         self.zona = self.obtenerAqueZonaPertenece(Zonas, latlng);               // obtener la zona
-        self.imprimirCedulasEnHTML("cedulaStyle").scrollHastaElemento();      // Agregar la cedula al html y hacer Scroll hasta esta
+        self.imprimirCedulasEnHTML().scrollHastaElemento();      // Agregar la cedula al html y hacer Scroll hasta esta
       } else {
         alert('No pude encontrar la direccion por el siguiente motivo: ' + status);
       }
     });
     return this;
   }
-
   // metodo PARA DETERMINAR EN QUE ZONA ESTA LA DIRECCION
   obtenerAqueZonaPertenece(Zonas, latlng){
     // chequeo cada uno de los poligonos hasta encontrar el que contiene la direccion
@@ -112,26 +119,25 @@ class Cedula {
       }
     }
   }
-
   // metodo PARA mostrar la DIRECCION en la ZONA
-  imprimirCedulasEnHTML(clase){
+  imprimirCedulasEnHTML(){
     let self = this;
-    self.HTMLement.className = clase; // le asigno la clase
-    self.HTMLement.innerHTML = '<td class="col" id="numorden">' + document.getElementById(self.zona).rows.length +
-      '<td class="col">' + self.direccion +
-      '</td><td class="col">' + self.expediente + '</td><td class="col">' + self.observaciones + '</td>' +
-      '<td class="col"><button class="marcadorIcon" onclick=""></td><td class="col">' +
-      '<input type="button" class="botonEliminar" value="X" onclick="eliminarRow(this)"></td>'; // creo las celdas
+    self.HTMLement.className = "cedulaStyle"; // le asigno la clase
+    self.HTMLement.innerHTML = "<td class='col' id='numorden'>" + document.getElementById(self.zona).rows.length +
+      "<td class='col'>" + self.direccion +
+      "</td><td class='col'>" + self.expediente + "</td><td class='col'>" + self.observaciones + "</td>" +
+      "<td class='col'><button class='marcadorIcon' onclick=''></td><td class='col'>" +
+      "<input type='button' class='botonEliminar' value='X' onclick='eliminarRow(this)'></td>"; // creo las celdas
     document.getElementById(self.zona).appendChild(self.HTMLement); // asigno las celdas a la tabla
     return this;
   }
-
+  // Mostrar / Ocultar el Marcador en el Mapa
   switchVisibilidadDeMarcador() {
     let self = this;
     self.Marcador.getVisible() ? self.Marcador.setVisible(false) : self.Marcador.setVisible(true);
     return this;
   }
-
+  // Scroll hasta la ultima cedula agregada
   scrollHastaElemento() {
     let self = this;
     let element = self.HTMLement;
@@ -140,62 +146,48 @@ class Cedula {
   }
 }
 
-// Funcion para crear las zonas
-function crearZonas(infoZonas, Mapa) {
-  var Zonas = [];
-  for (n = 0; n < infoZonas.length; n++) {
-    Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
-      .setearZonasEnMapa(Mapa)
-      .setearZonasEnHTML();
-  }
-  return Zonas;
-}
-
-function exportarExcel(tabla) {
-  console.log(document.getElementById(tabla));
-}
-
+// Funcion para limpiar los inputs
 function blanquearInputsYTips(){
   blanquearInput("direccion");
   blanquearInput("expediente");
   blanquearInput("observaciones");
   eliminarElemento("tips");
 }
-
+// Funcion para ocultar el marcador anterior
 function ocultarMarcadorPrevio(numero, Cedula) {
   var anterior = numero - 1;
   Cedula[anterior].switchVisibilidadDeMarcador();
 }
-
 // FUNCION PARA ELIMINAR UN ELEMENTO
 function eliminarElemento(elemento){
   if(document.getElementById(elemento))
 		document.getElementById(elemento).remove();
 }
-
+// Funcion para eliminar una fila (cedula)
 function eliminarRow(row) {
   if (confirm("Estas seguro que deseas eliminar esta cedula?")) {
     var rowSeleccionada = row.parentNode.parentNode;
     rowSeleccionada.parentNode.removeChild(rowSeleccionada);
   }
 }
-
 // FUNCION PARA DEJAR EN BLANCO UN INPUT
 function blanquearInput(elemento){
   document.getElementById(elemento).value = "";
 }
-
 // FUNCION PARA SETEAR LA POSICION DEL MAPA POR DEFECTO
 function setearOpcionesDelMapaPorDefault(map) {
   map.setCenter({lat:-34.618356, lng:-58.433464});
   map.setZoom(12);
 }
-
+// funcion para volver el cursor al imput direccion
 function setearCursorEnCampoDireccion() {
   document.getElementById("direccion").focus();
 }
-
-//cargar info de las zonas (temporal)
+// TODO: funcion para exportar tabla a CSV
+function exportarExcel(tabla) {
+  console.log(document.getElementById(tabla));
+}
+//cargar info de las zonas
 function cargarDataSobreZonas(){
   let zona = [
     {
