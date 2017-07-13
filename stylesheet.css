@@ -9,7 +9,6 @@ html {
 }
 
 body {
-  background-color: "white";
   background-image: url(img/cartographerb.png);
 }
 
@@ -120,8 +119,13 @@ table {
 }
 
 @keyframes change-color {
-  0%   { background-color: yellow; }
-  100% { background-color: white; }
+  0%   { background-color: 	white;
+          color: red;}
+  25%   { background-color: #FFFF00; }
+  50%   { background-color: white; }
+  75%   { background-color: #FFFF00; }
+  100% { background-color: white;
+          color: black;}
 }
 
 
@@ -129,7 +133,7 @@ table {
   border-collapse: collapse;
   width: 33%;
   padding: 5px;
-  animation: change-color 10s forwards;
+  animation: change-color 5s forwards;
 }
 
 .notbold {
