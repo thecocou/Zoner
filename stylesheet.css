@@ -86,13 +86,12 @@ body {
 }
 
 .nombreZona {
-  background-color: white;
 	border: 1px solid;
   text-align: center;
   padding: 0px;
   margin: 20px;
   width: 500px;
-
+  color: black;
   font-size: 15px;
   font-weight: bold;
 }

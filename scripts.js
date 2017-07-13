@@ -58,18 +58,17 @@ class Zona {
   }
 
   // Metodo PARA MOSTRAR LA LISTA DE ZONAS creadas en la barra lateral
-  setearZonasEnHTML(id, clase) {
+  setearZonasEnHTML() {
     let self = this;
-    self.HTMLzona.className = clase; // le asigno la clase
-    self.HTMLzona.id = self.nombre; // asigno id
+    self.HTMLzona.className = "nombreZona";   // le asigno la clase
+    self.HTMLzona.id = self.nombre;           // asigno id
     self.HTMLzona.innerHTML = '<th colspan="2">' + self.nombre +
       "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + '</span></th><td colspan="2">'+
       '<button id="'+self.HTMLzona.id+'" class="descargar" onclick="exportarExcel(this.id)">Descargar</button></td>'; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
-    self.HTMLzona.style.color = "black"; // asigno color
     self.HTMLzona.style["background-color"] = self.color;
     // Agrego el texto al elemento id
-    document.getElementById(id).appendChild(self.HTMLzona);
+    document.getElementById("listaDeZonas").appendChild(self.HTMLzona);
     return this;
   }
 }
@@ -146,7 +145,7 @@ function crearZonas(infoZonas, Mapa) {
   for (n = 0; n < infoZonas.length; n++) {
     Zonas[n] = new Zona(infoZonas[n].nombre, infoZonas[n].notificador, infoZonas[n].coordenadas, infoZonas[n].color)
       .setearZonasEnMapa(Mapa)
-      .setearZonasEnHTML("listaDeZonas", "nombreZona");
+      .setearZonasEnHTML();
   }
   return Zonas;
 }
