@@ -14,7 +14,9 @@ function initZoner(){
   botonBuscar.addEventListener("click", function() {
     CedulaDeNotificacion[numero] = new Cedula(Mapa)
     .geocodificarDireccion(Geocoder, Zonas);
-    if (numero > 0) { ocultarMarcadorPrevio(numero, CedulaDeNotificacion); }
+    if (numero > 0) {
+      ocultarMarcadorPrevio(numero, CedulaDeNotificacion);
+    }
     setearOpcionesDelMapaPorDefault(Mapa);
     setearCursorEnCampoDireccion();
     blanquearInputsYTips();
@@ -77,7 +79,6 @@ class Zona {
 class Cedula {
   constructor(Mapa) {
     this.direccion = document.getElementById('direccion').value;
-    this.ciudad = "Capital Federal";
     this.expediente = document.getElementById('expediente').value;
     this.observaciones = document.getElementById('observaciones').value;
     this.Marcador = new google.maps.Marker({map: Mapa});
@@ -88,7 +89,7 @@ class Cedula {
   // Metodo para geocodificar la direccion
   geocodificarDireccion(Geocoder, Zonas) {
     let self = this;
-    Geocoder.geocode({'address': self.direccion, componentRestrictions:{'locality': self.ciudad}}, function(results, status) {
+    Geocoder.geocode({'address': self.direccion + " Capital Federal, Argentina", componentRestrictions:{'locality': "Ciudad Autonoma de Buenos Aires"}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
         self.Marcador.setPosition(results[0].geometry.location);                // ubicar marcador
