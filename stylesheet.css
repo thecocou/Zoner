@@ -121,9 +121,9 @@ table {
 @keyframes change-color {
   0%   { background-color: 	white;
           color: red;}
-  25%   { background-color: #FFFF00; }
+  25%   { background-color: #00FF00; }
   50%   { background-color: white; }
-  75%   { background-color: #FFFF00; }
+  75%   { background-color: #00FF00; }
   100% { background-color: white;
           color: black;}
 }
@@ -133,7 +133,7 @@ table {
   border-collapse: collapse;
   width: 33%;
   padding: 5px;
-  animation: change-color 5s forwards;
+  animation: change-color 10s forwards;
 }
 
 .notbold {
