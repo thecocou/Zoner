@@ -97,7 +97,7 @@ class Cedula {
   // Metodo para geocodificar la direccion
   geocodificarDireccion(Geocoder, Zonas) {
     let self = this;
-    Geocoder.geocode({'address': self.direccion + " Capital Federal, Argentina", componentRestrictions:{'locality': "Ciudad Autonoma de Buenos Aires"}}, function(results, status) {
+    Geocoder.geocode({'address': self.direccion + ", Capital Federal", componentRestrictions:{'locality': "Capital Federal"}}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {        // si google pudo geocodificar la direccion
         var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
         self.Marcador.setPosition(results[0].geometry.location);                // ubicar marcador
