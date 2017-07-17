@@ -8,19 +8,19 @@ function initZoner(){
       Geocoder = new google.maps.Geocoder();
       CedulaDeNotificacion = [];
       botonBuscar = document.getElementById('buscar');
-      numero = 0;
+      cantidadDeCedulas = 0;
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener("click", function() {
-    CedulaDeNotificacion[numero] = new Cedula(Mapa)
+    CedulaDeNotificacion[cantidadDeCedulas] = new Cedula(Mapa)
     .geocodificarDireccion(Geocoder, Zonas);
-    if (numero > 0) {
-      ocultarMarcadorPrevio(numero, CedulaDeNotificacion);
+    if (cantidadDeCedulas > 0) {
+      ocultarMarcadorPrevio(cantidadDeCedulas, CedulaDeNotificacion);
     }
     setearOpcionesDelMapaPorDefault(Mapa);
     setearCursorEnCampoDireccion();
     blanquearInputsYTips();
-    numero++;
+    cantidadDeCedulas++;
   });
 }
 
