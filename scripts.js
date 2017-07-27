@@ -75,7 +75,7 @@ class Zona {
     self.HTMLzona.id = self.nombre;           // asigno id
     self.HTMLzona.innerHTML = "<th colspan='2'>" + self.nombre +
       "<th colspan='2'><span class='notbold'> Notificador: " + self.notificador + "</span></th><td colspan='2'>" +
-      "<button id='" + self.HTMLzona.id + "'class='descargar' onclick='exportarExcel(this.id)'>Descargar</button></td>"; // imprimo nombre
+      "<button id='" + self.HTMLzona.id; // imprimo nombre
     self.HTMLzona.style.borderColor = self.color; // asigno color
     self.HTMLzona.style["background-color"] = self.color;
     // Agrego el texto al elemento id
@@ -126,8 +126,7 @@ class Cedula {
     self.HTMLement.innerHTML = "<td class='col' id='numorden'>" + document.getElementById(self.zona).rows.length +
       "<td class='col'>" + self.direccion +
       "</td><td class='col'>" + self.expediente + "</td><td class='col'>" + self.observaciones + "</td>" +
-      "<td class='col'><button class='marcadorIcon' onclick=''></td><td class='col'>" +
-      "<input type='button' class='botonEliminar' value='X' onclick='eliminarRow(this)'></td>"; // creo las celdas
+      "<td class='col'><input type='button' class='botonEliminar' value='X' onclick='eliminarRow(this)'></td>"; // creo las celdas
     document.getElementById(self.zona).appendChild(self.HTMLement); // asigno las celdas a la tabla
     return this;
   }
