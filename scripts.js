@@ -1,14 +1,18 @@
 /*jshint esversion: 6*/
 
 function initZoner(){
-  var Mapa = cargarMapa();  // Cargo Mapa
-      infoZonas = cargarDataSobreZonas();	// Cargo info sobre las Zonas
+  // Cargo Mapa
+  var Mapa = cargarMapa();
+  // Cargo info sobre zonas
+      infoZonas = cargarDataSobreZonas();
+  // Creo zonas
       Zonas = crearZonas(infoZonas, Mapa);
-
+  // Creo Geocodificador
       Geocoder = new google.maps.Geocoder();
+
       CedulaDeNotificacion = [];
-      botonBuscar = document.getElementById('buscar');
       cantidadDeCedulas = 0;
+      botonBuscar = document.getElementById('buscar');
 
   // Al hacer click en buscar geocodificar la direccion
   botonBuscar.addEventListener("click", function() {
@@ -181,10 +185,6 @@ function setearOpcionesDelMapaPorDefault(map) {
 // funcion para volver el cursor al imput direccion
 function setearCursorEnCampoDireccion() {
   document.getElementById("direccion").focus();
-}
-// TODO: funcion para exportar tabla a CSV
-function exportarExcel(tabla) {
-  console.log(document.getElementById(tabla));
 }
 //cargar info de las zonas
 function cargarDataSobreZonas(){
