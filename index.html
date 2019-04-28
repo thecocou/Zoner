@@ -8,31 +8,32 @@
 
 	<body>
 		<div id=sitio>
-			<div id=contenedor>
+			<section id=contenedor>
 				<!-- titulo -->
-				<div id="encabezado">
+				<section id="encabezado">
 					<img id="logo" src="img/logozoner2.png" width="150px" height="70px"/>
-				</div>
+				</section>
 
 				<!-- buscador -->
-				<div class="buscador">
-					<input id="buscar" type="submit" value="Buscar"/>
+				<section id="buscador">
 					<input id="direccion" placeholder="Ingrese direccion" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
-					<input id="expediente" placeholder="Numero de expediente" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
-					<input id="observaciones" placeholder="Observaciones" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
-				</div>
+					<input id="expediente" placeholder="Numero de cedula" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
+					<input id="observaciones" placeholder="Dependencia" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('buscar').click()"/>
+					<input id="buscar" type="submit" value="Buscar" />
+				</section>
 
-				<div id="map">	<!-- cargo mapa -->
+				<!-- cargo mapa -->
+				<section id="map">
 					<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl_xZ4WCwJOWHQuvJcOl1HvW-ViYNzK9Q&callback=initZoner"></script>
-				</div>
-			</div>
+				</section>
+			</section>
 
 			<!-- Barra lateral -->
-			<div id="barraLateral">
-					<p id="tips">Ingresa las direcciones para saber a que zona pertencen.</br></p>
+			<section id="barraLateral">
+				<p id="tips">Ingresa las direcciones para saber a que zona pertencen.</br></p>
 				<div id="listaDeZonas">
 				</div>
-			</div>
+			</section>
 
 		</div>
 	</body>
